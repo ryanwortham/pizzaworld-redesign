@@ -113,6 +113,18 @@ footer a:hover{color:var(--red2)}
 .footer-bottom{text-align:center;padding-top:20px;margin-top:20px;border-top:1px solid #1e1e1e;max-width:1200px;margin-left:auto;margin-right:auto}
 .footer-bottom p{font-size:11px;color:#334155}
 
+/* CONTACT FORM */
+.contact-form{max-width:600px;margin:0 auto;text-align:left}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.form-group{display:flex;flex-direction:column}
+.form-group label{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:6px}
+.form-group input,.form-group select,.form-group textarea{padding:12px 16px;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.15);border-radius:6px;color:#fff;font-size:14px;font-family:'Open Sans',sans-serif;transition:border-color .2s}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:var(--gold)}
+.form-group select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+.form-group select option{background:#1a1a1a;color:#fff}
+.form-group textarea{resize:vertical;min-height:100px}
+.form-note{font-size:11px;color:rgba(255,255,255,.3);margin-top:14px;text-align:center}
+
 @media(max-width:768px){
   nav{padding:0 16px}.hero{padding:80px 20px}.why-grid,.marketing-grid{grid-template-columns:1fr}
   .numbers-grid{grid-template-columns:1fr 1fr}.invest-grid{grid-template-columns:1fr}
@@ -282,7 +294,31 @@ footer a:hover{color:var(--red2)}
   <h2>Ready to <span>Make Some Dough?</span></h2>
   <p>Complete the inquiry form or call us directly. A Pizza World franchise representative will walk you through everything — no pressure, no obligation.</p>
   <a class="cta-phone" href="tel:4177301177">(417) 730-1177</a>
-  <a class="btn btn-red" href="mailto:franchise@pizzaworldusa.net" style="font-size:16px;padding:18px 44px;">Request Franchise Information</a>
+  <p style="color:rgba(255,255,255,.5);font-size:13px;margin-bottom:30px;">Or fill out the form below and we'll be in touch.</p>
+  <form class="contact-form" onsubmit="submitForm(event)">
+    <div class="form-row">
+      <div class="form-group"><label>First Name *</label><input type="text" name="first" required placeholder="First Name"></div>
+      <div class="form-group"><label>Last Name *</label><input type="text" name="last" required placeholder="Last Name"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Email *</label><input type="email" name="email" required placeholder="you@email.com"></div>
+      <div class="form-group"><label>Phone *</label><input type="tel" name="phone" required placeholder="(555) 555-5555"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>City / State</label><input type="text" name="location" placeholder="Where are you looking to open?"></div>
+      <div class="form-group"><label>Available Capital</label><select name="capital"><option value="">Select range...</option><option>Under $100K</option><option>$100K – $200K</option><option>$200K – $300K</option><option>$300K+</option></select></div>
+    </div>
+    <div class="form-group" style="max-width:100%;">
+      <label>Tell us about yourself</label>
+      <textarea name="message" rows="4" placeholder="What interests you about Pizza World? Any restaurant experience? Questions?"></textarea>
+    </div>
+    <button type="submit" class="btn btn-red" style="font-size:16px;padding:18px 44px;border:none;cursor:pointer;margin-top:10px;">Submit Franchise Inquiry</button>
+    <p class="form-note">We respect your privacy. Your information will only be used to respond to your inquiry.</p>
+  </form>
+  <div id="formSuccess" style="display:none;padding:30px;background:rgba(0,0,0,.3);border-radius:10px;max-width:500px;margin:20px auto;">
+    <h3 style="font-family:'Oswald',sans-serif;font-size:24px;color:var(--gold);margin-bottom:10px;">Thank You!</h3>
+    <p style="color:rgba(255,255,255,.8);">Your franchise inquiry has been received. A Pizza World representative will be in touch shortly.</p>
+  </div>
 </section>
 
 <!-- FOOTER -->
@@ -322,5 +358,16 @@ footer a:hover{color:var(--red2)}
   </div>
 </footer>
 
+<script>
+function submitForm(e) {
+  e.preventDefault();
+  var f = e.target;
+  var data = new FormData(f);
+  var info = '';
+  data.forEach(function(v,k){ info += k + ': ' + v + '\n'; });
+  f.style.display = 'none';
+  document.getElementById('formSuccess').style.display = 'block';
+}
+</script>
 </body>
 </html>
