@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Own a Pizza World Franchise — Gourmet Pizzeria Est. 1996</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--red:#c41e2a;--red2:#e63946;--dark:#0a0a0a;--dark2:#121212;--dark3:#1a1a1a;--gold:#c9a84c;--white:#fff;--gray:#94a3b8}
+html{scroll-behavior:smooth}
+body{font-family:'Open Sans',sans-serif;background:var(--dark);color:var(--white);overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,10,0.97);backdrop-filter:blur(12px);border-bottom:2px solid var(--red);display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:70px}
+nav img{height:50px;filter:brightness(0) invert(1)}
+.nav-links{display:flex;gap:4px;list-style:none;align-items:center}
+.nav-links a{display:block;padding:10px 14px;color:var(--white);text-decoration:none;font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;border-radius:4px;transition:all .2s}
+.nav-links a:hover{color:var(--red2);background:rgba(255,255,255,.04)}
+.nav-cta{background:var(--red)!important;color:#fff!important;padding:12px 22px!important;font-weight:600;box-shadow:0 4px 16px rgba(196,30,42,.3)}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;padding:100px 60px 80px}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,rgba(10,10,10,.88),rgba(10,10,10,.7)),url('https://mypizzaworld.net/wp-content/uploads/2023/10/DSC02157-48.jpg') center/cover}
+.hero-content{position:relative;z-index:2;max-width:680px}
+.hero-eyebrow{font-family:'Oswald',sans-serif;font-size:14px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.hero h1{font-family:'Oswald',sans-serif;font-size:clamp(42px,6vw,76px);font-weight:700;line-height:1.05;text-transform:uppercase;letter-spacing:1px}
+.hero h1 span{color:var(--red2)}
+.hero p{font-size:18px;color:rgba(255,255,255,.7);margin:22px 0 36px;line-height:1.7;max-width:540px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:16px 34px;font-family:'Oswald',sans-serif;font-size:15px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;border-radius:4px;font-weight:600;transition:all .25s}
+.btn-red{background:var(--red);color:#fff;box-shadow:0 4px 20px rgba(196,30,42,.4)}
+.btn-red:hover{background:var(--red2);transform:translateY(-2px)}
+.btn-outline{border:2px solid rgba(255,255,255,.3);color:#fff;background:transparent}
+.btn-outline:hover{border-color:#fff;background:rgba(255,255,255,.05)}
+.hero-buttons{display:flex;gap:14px;flex-wrap:wrap}
+
+/* NUMBERS */
+.numbers{background:var(--red);padding:0}
+.numbers-grid{display:grid;grid-template-columns:repeat(4,1fr);max-width:1200px;margin:0 auto}
+.num-card{padding:36px 20px;text-align:center;border-right:1px solid rgba(255,255,255,.1)}
+.num-card:last-child{border-right:none}
+.num-card .val{font-family:'Oswald',sans-serif;font-size:42px;font-weight:700}
+.num-card .lbl{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.75);margin-top:4px}
+
+/* SECTION UTILS */
+.section-label{font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:5px;text-transform:uppercase;color:var(--red);display:block;margin-bottom:10px}
+.section-title{font-family:'Oswald',sans-serif;font-size:clamp(28px,4vw,44px);font-weight:700;text-transform:uppercase;margin-bottom:14px}
+.section-title span{color:var(--red2)}
+.section-desc{color:var(--gray);font-size:15px;max-width:560px;line-height:1.8}
+
+/* WHY PIZZA WORLD */
+.why{padding:90px 40px;max-width:1200px;margin:0 auto}
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;margin-top:50px}
+.why-img{border-radius:10px;overflow:hidden;border:2px solid var(--red)}
+.why-img img{width:100%;display:block}
+.checkmarks{list-style:none;margin-top:20px}
+.checkmarks li{padding:12px 0;border-bottom:1px solid #1e1e1e;font-size:15px;display:flex;align-items:center;gap:14px}
+.checkmarks li::before{content:'';width:24px;height:24px;border-radius:50%;background:var(--red);flex-shrink:0;display:flex;align-items:center;justify-content:center;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:center}
+
+/* FOOD STRIP */
+.food-strip{padding:80px 0;background:var(--dark2);text-align:center;overflow:hidden}
+.food-strip h2{font-family:'Oswald',sans-serif;font-size:36px;text-transform:uppercase;margin-bottom:10px}
+.food-strip p{color:var(--gray);font-size:15px;margin-bottom:40px}
+.food-scroll{display:flex;gap:16px;padding:0 40px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.food-scroll::-webkit-scrollbar{display:none}
+.food-card{flex:0 0 280px;scroll-snap-align:start;border-radius:10px;overflow:hidden;border:1px solid #222;transition:transform .25s}
+.food-card:hover{transform:translateY(-4px)}
+.food-card img{width:100%;height:200px;object-fit:cover;display:block}
+.food-card-body{padding:16px;background:var(--dark3)}
+.food-card-body h4{font-family:'Oswald',sans-serif;font-size:16px;text-transform:uppercase;letter-spacing:1px}
+
+/* INVESTMENT */
+.investment{padding:90px 40px;text-align:center}
+.invest-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:900px;margin:40px auto 0}
+.invest-card{background:var(--dark2);border:1px solid #222;border-radius:10px;padding:36px 24px;transition:border-color .25s}
+.invest-card:hover{border-color:var(--red)}
+.invest-card .val{font-family:'Oswald',sans-serif;font-size:36px;font-weight:700;color:var(--gold)}
+.invest-card .lbl{font-size:13px;color:var(--gray);margin-top:8px;line-height:1.5}
+
+/* MARKETING */
+.marketing{padding:90px 40px;background:var(--dark2)}
+.marketing-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;max-width:1200px;margin:0 auto;align-items:center}
+.marketing-img{border-radius:10px;overflow:hidden;border:1px solid #333;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.marketing-img img{width:100%;display:block}
+
+/* TESTIMONIALS */
+.testimonials{padding:90px 40px}
+.test-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px;max-width:1100px;margin:40px auto 0}
+.test-card{background:var(--dark2);border:1px solid #222;border-radius:10px;padding:30px;border-top:3px solid var(--red)}
+.test-quote{font-size:15px;color:rgba(255,255,255,.8);line-height:1.7;font-style:italic;margin-bottom:16px}
+.test-author{font-family:'Oswald',sans-serif;font-size:14px;letter-spacing:1px;text-transform:uppercase;color:var(--gold)}
+
+/* LOCATIONS MAP */
+.locations{padding:80px 40px;background:var(--dark2);text-align:center}
+.loc-badges{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:30px}
+.loc-badge{background:var(--dark);border:1px solid #222;border-radius:50px;padding:10px 24px;font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:1px;text-transform:uppercase;color:#ccc}
+
+/* CTA */
+.cta{background:linear-gradient(135deg,rgba(196,30,42,.9),rgba(10,10,10,.95)),url('https://mypizzaworld.net/wp-content/uploads/2023/10/DSC02189-54.jpg') center/cover;padding:90px 40px;text-align:center}
+.cta h2{font-family:'Oswald',sans-serif;font-size:48px;text-transform:uppercase;margin-bottom:16px}
+.cta h2 span{color:var(--gold)}
+.cta p{color:rgba(255,255,255,.75);max-width:520px;margin:0 auto 30px;font-size:16px;line-height:1.7}
+.cta-phone{font-family:'Oswald',sans-serif;font-size:32px;font-weight:700;color:var(--gold);text-decoration:none;display:block;margin-bottom:24px}
+
+/* FOOTER */
+footer{background:var(--dark2);border-top:2px solid var(--red);padding:50px 40px 24px}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.2fr;gap:36px;max-width:1200px;margin:0 auto}
+.footer-brand img{height:50px;filter:brightness(0) invert(1);margin-bottom:14px}
+.footer-brand p{font-size:12px;color:#475569;line-height:1.7}
+footer h4{font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:12px}
+footer a{display:block;color:#64748b;text-decoration:none;font-size:13px;margin-bottom:8px;transition:color .2s}
+footer a:hover{color:var(--red2)}
+.footer-bottom{text-align:center;padding-top:20px;margin-top:20px;border-top:1px solid #1e1e1e;max-width:1200px;margin-left:auto;margin-right:auto}
+.footer-bottom p{font-size:11px;color:#334155}
+
+@media(max-width:768px){
+  nav{padding:0 16px}.hero{padding:80px 20px}.why-grid,.marketing-grid{grid-template-columns:1fr}
+  .numbers-grid{grid-template-columns:1fr 1fr}.invest-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:20px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#"><img src="https://mypizzaworld.net/wp-content/uploads/2024/02/PW-NEW-logo-1996-R-1.png" alt="Pizza World"></a>
+  <ul class="nav-links">
+    <li><a href="#">Home</a></li>
+    <li><a href="#why">Why Pizza World</a></li>
+    <li><a href="#food">The Food</a></li>
+    <li><a href="#investment">Investment</a></li>
+    <li><a href="#marketing">Marketing</a></li>
+    <li><a href="#testimonials">Testimonials</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#contact" class="nav-cta">Start Your Franchise</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Franchise Opportunity</div>
+    <h1>Own a <span>Pizza World</span> Franchise</h1>
+    <p>Join the most franchise-friendly pizza company in America. Low startup costs, no marketing fees, and a gourmet product that keeps customers coming back. Since 1996.</p>
+    <div class="hero-buttons">
+      <a class="btn btn-red" href="#contact">Request Franchise Info</a>
+      <a class="btn btn-outline" href="#investment">See the Numbers</a>
+    </div>
+  </div>
+</section>
+
+<!-- BY THE NUMBERS -->
+<div class="numbers">
+  <div class="numbers-grid">
+    <div class="num-card"><div class="val">$43B</div><div class="lbl">Pizza Industry Size</div></div>
+    <div class="num-card"><div class="val">90%</div><div class="lbl">Americans Eat Pizza</div></div>
+    <div class="num-card"><div class="val">2.75%</div><div class="lbl">Royalty Rate</div></div>
+    <div class="num-card"><div class="val">$0</div><div class="lbl">Monthly Marketing Fee</div></div>
+  </div>
+</div>
+
+<!-- WHY PIZZA WORLD -->
+<section class="why" id="why">
+  <span class="section-label">The Opportunity</span>
+  <h2 class="section-title">Why <span>Pizza World?</span></h2>
+  <p class="section-desc">Because it's all about your bottom line. We built Pizza World to be the most franchise-friendly brand in the industry. Low overhead. Premium product. Real support.</p>
+  <div class="why-grid">
+    <div class="why-img">
+      <img src="https://mypizzaworld.net/wp-content/uploads/2023/10/DSC02136-43.jpg" alt="Pizza World Gourmet Pizza">
+    </div>
+    <div>
+      <h3 style="font-family:'Oswald',sans-serif;font-size:24px;text-transform:uppercase;margin-bottom:20px;">Built for <span style="color:var(--red);">Franchise Owners</span></h3>
+      <ul class="checkmarks">
+        <li>Average startup: $175K – $296K</li>
+        <li>SBA Approved — bank financing available</li>
+        <li>Only 2.75% royalty — one of the lowest in the industry</li>
+        <li>0% marketing fund — we provide all materials free</li>
+        <li>Full training program for you and your team</li>
+        <li>Proprietary POS system with online ordering built in</li>
+        <li>Exclusive Marketing Hub with ready-to-use content</li>
+        <li>Real gourmet product — 19 specialty pizzas</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- FOOD STRIP -->
+<section class="food-strip" id="food">
+  <span class="section-label">The Menu</span>
+  <h2>More Than Just <span style="color:var(--red2);">Pizza</span></h2>
+  <p>Salads, wings, subs, pasta, calzones, and more — a full menu that drives repeat business and higher average tickets.</p>
+  <div class="food-scroll">
+    <div class="food-card"><img src="https://mypizzaworld.net/wp-content/uploads/2023/10/DSC02157-48.jpg" alt="Gourmet Pizza"><div class="food-card-body"><h4>19 Gourmet Pizzas</h4></div></div>
+    <div class="food-card"><img src="https://pizzaworldonline.com/wp-content/uploads/2025/05/wings-group-photo.jpg" alt="Wings"><div class="food-card-body"><h4>World Famous Wings</h4></div></div>
+    <div class="food-card"><img src="https://pizzaworldonline.com/wp-content/uploads/2025/06/img_1116_0-scaled-1.jpg" alt="Subs"><div class="food-card-body"><h4>Baked Fresh Subs</h4></div></div>
+    <div class="food-card"><img src="https://pizzaworldonline.com/wp-content/uploads/2025/06/salads-2.jpg" alt="Salads"><div class="food-card-body"><h4>Specialty Salads</h4></div></div>
+    <div class="food-card"><img src="https://pizzaworldonline.com/wp-content/uploads/2025/05/Canelloni.jpg" alt="Pasta"><div class="food-card-body"><h4>Baked Pasta</h4></div></div>
+    <div class="food-card"><img src="https://pizzaworldonline.com/wp-content/uploads/2025/06/PW-Calzone-2-scaled-1.jpeg" alt="Calzones"><div class="food-card-body"><h4>Stuffed Calzones</h4></div></div>
+    <div class="food-card"><img src="https://pizzaworldonline.com/wp-content/uploads/2025/06/DSC02609-130-scaled.jpg" alt="Desserts"><div class="food-card-body"><h4>Cinnamon Desserts</h4></div></div>
+    <div class="food-card"><img src="https://pizzaworldonline.com/wp-content/uploads/2025/06/PW-Toasted-Raviola-1-scaled-1.jpeg" alt="Toasted Ravioli"><div class="food-card-body"><h4>Toasted Ravioli</h4></div></div>
+  </div>
+</section>
+
+<!-- INVESTMENT -->
+<section class="investment" id="investment">
+  <span class="section-label">The Investment</span>
+  <h2 class="section-title" style="text-align:center;">What It <span>Costs</span></h2>
+  <p class="section-desc" style="text-align:center;margin:0 auto;">Transparent pricing. No hidden fees. One of the most affordable franchise opportunities in the pizza industry.</p>
+  <div class="invest-grid">
+    <div class="invest-card">
+      <div class="val">$175K–$296K</div>
+      <div class="lbl">Total estimated startup cost including equipment, buildout, and inventory</div>
+    </div>
+    <div class="invest-card">
+      <div class="val">2.75%</div>
+      <div class="lbl">Royalty on gross sales — one of the lowest franchise fees in the food industry</div>
+    </div>
+    <div class="invest-card">
+      <div class="val">$0 / Month</div>
+      <div class="lbl">Marketing fund contribution — we provide all marketing materials at no charge</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKETING SUPPORT -->
+<section class="marketing" id="marketing">
+  <div class="marketing-grid">
+    <div>
+      <span class="section-label">Franchise Support</span>
+      <h2 class="section-title">We Got Your <span>Marketing</span> Covered</h2>
+      <p class="section-desc" style="margin-bottom:20px;">Pizza World has invested in eye-popping, top-notch marketing designs — menus, postcards, flyers, coupon ads, in-store posters, window clings, and box toppers. All provided free to every franchise location.</p>
+      <p class="section-desc" style="margin-bottom:20px;">Most franchise chains charge a monthly marketing fund based on sales. At Pizza World, there are no monthly fees — saving you hundreds, if not thousands, of dollars each month.</p>
+      <p class="section-desc"><strong style="color:var(--gold);">Plus:</strong> Every franchise gets access to our proprietary Marketing Hub — a one-stop digital toolkit with social media content, email templates, product photos, brand materials, and more.</p>
+    </div>
+    <div class="marketing-img">
+      <img src="https://pizzaworldfranchise.com/wp-content/uploads/2024/03/social-hub.png" alt="Pizza World Marketing Hub">
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div style="text-align:center;">
+    <span class="section-label">Success Stories</span>
+    <h2 class="section-title">Hear From Our <span>Franchise Owners</span></h2>
+  </div>
+  <div class="test-grid">
+    <div class="test-card">
+      <div class="test-quote">"I started as a store employee and worked my way up to owning my own franchise. Pizza World gave me the opportunity and the support to make it happen."</div>
+      <div class="test-author">Bittney — Branson, MO</div>
+    </div>
+    <div class="test-card">
+      <div class="test-quote">"My husband and I run our Pizza World together. It's been an incredible journey — we've built a successful business as a team, and the corporate support makes all the difference."</div>
+      <div class="test-author">Duane — Indian Point, MO</div>
+    </div>
+    <div class="test-card">
+      <div class="test-quote">"We looked for 15 years trying pizzas from Los Angeles to Virginia but kept coming back to Pizza World. The product is that good — and the franchise model made it a no-brainer."</div>
+      <div class="test-author">Bob Jordan — Cedar Rapids, IA</div>
+    </div>
+  </div>
+</section>
+
+<!-- CURRENT LOCATIONS -->
+<section class="locations">
+  <span class="section-label">Growing Nationwide</span>
+  <h2 class="section-title" style="text-align:center;">Current <span>Locations</span></h2>
+  <p class="section-desc" style="text-align:center;margin:0 auto;">14+ locations across 4 states — and we're looking for franchisees in every market.</p>
+  <div class="loc-badges">
+    <div class="loc-badge">Illinois</div>
+    <div class="loc-badge">Missouri</div>
+    <div class="loc-badge">Iowa</div>
+    <div class="loc-badge">Florida</div>
+  </div>
+  <p style="color:var(--gray);font-size:14px;margin-top:20px;">Territories available nationwide. Multi-unit deals available.</p>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="contact">
+  <span class="section-label" style="color:rgba(255,255,255,.4);">Take the First Step</span>
+  <h2>Ready to <span>Make Some Dough?</span></h2>
+  <p>Complete the inquiry form or call us directly. A Pizza World franchise representative will walk you through everything — no pressure, no obligation.</p>
+  <a class="cta-phone" href="tel:4177301177">(417) 730-1177</a>
+  <a class="btn btn-red" href="mailto:franchise@pizzaworldusa.net" style="font-size:16px;padding:18px 44px;">Request Franchise Information</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <img src="https://mypizzaworld.net/wp-content/uploads/2024/02/PW-NEW-logo-1996-R-1.png" alt="Pizza World">
+      <p>Pizza World Gourmet Pizzeria — Est. 1996. Delivering the world's finest flavors through a franchise model built for your success.</p>
+    </div>
+    <div>
+      <h4>Franchise Info</h4>
+      <a href="#">Why Pizza World</a>
+      <a href="#">The Food</a>
+      <a href="#">Investment Details</a>
+      <a href="#">Marketing Support</a>
+      <a href="#">FAQ</a>
+    </div>
+    <div>
+      <h4>Company</h4>
+      <a href="https://pizzaworldonline.com">Order Pizza World</a>
+      <a href="#">Testimonials</a>
+      <a href="#">Blog</a>
+      <a href="#">Community Outreach</a>
+      <a href="#">Careers</a>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <p style="font-size:13px;color:#64748b;line-height:1.8;">
+        3400 West 76 Country Blvd.<br>Branson, MO 65616<br><br>
+        <a href="tel:4177301177" style="display:inline;color:var(--red);font-weight:600;">(417) 730-1177</a><br>
+        <a href="mailto:franchise@pizzaworldusa.net" style="display:inline;color:var(--red);">franchise@pizzaworldusa.net</a>
+      </p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>2026 Pizza World USA. All Rights Reserved. | <a href="#" style="display:inline;color:#475569;">Privacy Policy</a> | <a href="#" style="display:inline;color:#475569;">Terms</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
