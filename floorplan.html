@@ -3,415 +3,384 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pizza World — New Store Blueprint v4 (40' × 100')</title>
+<title>Pizza World — Interactive Floor Plan Editor</title>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: #0a0a0a; color: #fff; font-family: 'Open Sans', sans-serif; padding: 20px; }
-  .header { text-align: center; margin-bottom: 16px; }
-  .header h1 { font-family: 'Oswald', sans-serif; font-size: 24px; letter-spacing: 3px; text-transform: uppercase; }
-  .header h1 span { color: #d91f1f; }
-  .header .sub { color: #666; font-size: 11px; margin-top: 4px; }
-  .stats { max-width: 520px; margin: 0 auto 16px; display: grid; grid-template-columns: repeat(4,1fr); gap: 6px; }
-  .stat { background: #141414; border: 1px solid #2a2a2a; border-radius: 6px; padding: 8px 4px; text-align: center; }
-  .stat .v { font-family: 'Oswald', sans-serif; font-size: 18px; font-weight: 700; color: #d91f1f; }
-  .stat .l { font-size: 8px; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
-  .wrap { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0a0a0a;color:#fff;font-family:'Open Sans',sans-serif;overflow:hidden;height:100vh}
+.toolbar{position:fixed;top:0;left:0;right:0;height:48px;background:#141414;border-bottom:2px solid #d91f1f;display:flex;align-items:center;justify-content:space-between;padding:0 16px;z-index:100}
+.toolbar .title{font-family:'Oswald',sans-serif;font-size:16px;letter-spacing:2px;text-transform:uppercase}
+.toolbar .title span{color:#d91f1f}
+.toolbar .actions{display:flex;gap:8px}
+.btn{padding:6px 14px;background:#222;border:1px solid #444;border-radius:4px;color:#ccc;font-size:11px;font-family:'Oswald',sans-serif;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all .2s}
+.btn:hover{background:#d91f1f;border-color:#d91f1f;color:#fff}
+.btn.active{background:#d91f1f;border-color:#d91f1f;color:#fff}
+.info-bar{position:fixed;top:48px;left:0;right:0;height:28px;background:#111;display:flex;align-items:center;justify-content:center;gap:20px;font-size:10px;color:#666;border-bottom:1px solid #1a1a1a;z-index:99}
+.info-bar span{color:#888}
 
-  /* Blueprint canvas: 40'=400px wide, 100'=1000px tall */
-  .bp {
-    position: relative; width: 400px; height: 1000px;
-    background: #0e0e0e; border: 3px solid #444;
-    box-shadow: 0 0 30px rgba(0,0,0,0.6);
-  }
-  .bp::before {
-    content:''; position:absolute; inset:0; pointer-events:none; z-index:1;
-    background:
-      repeating-linear-gradient(0deg,transparent,transparent 99px,rgba(255,255,255,0.025) 99px,rgba(255,255,255,0.025) 100px),
-      repeating-linear-gradient(90deg,transparent,transparent 99px,rgba(255,255,255,0.025) 99px,rgba(255,255,255,0.025) 100px);
-  }
+.canvas-wrap{position:absolute;top:76px;left:0;right:240px;bottom:0;overflow:auto;background:#080808}
+.canvas{position:relative;margin:30px;background:#111;border:3px solid #444}
+/* Grid */
+.canvas::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
+background:repeating-linear-gradient(0deg,transparent,transparent 19px,rgba(255,255,255,0.03) 19px,rgba(255,255,255,0.03) 20px),
+repeating-linear-gradient(90deg,transparent,transparent 19px,rgba(255,255,255,0.03) 19px,rgba(255,255,255,0.03) 20px)}
+.canvas::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
+background:repeating-linear-gradient(0deg,transparent,transparent 99px,rgba(255,255,255,0.06) 99px,rgba(255,255,255,0.06) 100px),
+repeating-linear-gradient(90deg,transparent,transparent 99px,rgba(255,255,255,0.06) 99px,rgba(255,255,255,0.06) 100px)}
 
-  .rm {
-    position:absolute; display:flex; flex-direction:column; align-items:center;
-    justify-content:center; text-align:center; transition:all .2s; cursor:default; overflow:hidden;
-  }
-  .rm:hover { z-index:20; filter:brightness(1.4); }
-  .rm .n { font-family:'Oswald',sans-serif; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1px; }
-  .rm .d { font-size:8px; color:rgba(255,255,255,0.4); margin-top:1px; }
-  .rm .a { font-size:8px; color:#c9a84c; margin-top:1px; }
-  .rm .ic { font-size:15px; margin-bottom:2px; }
+.room{position:absolute;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;cursor:move;user-select:none;z-index:10;transition:box-shadow .2s}
+.room:hover{box-shadow:0 0 0 2px #d91f1f,0 0 20px rgba(217,31,31,0.3);z-index:20}
+.room.selected{box-shadow:0 0 0 2px #c9a84c,0 0 20px rgba(201,168,76,0.3);z-index:30}
+.room.dragging{opacity:0.8;z-index:50}
+.room .lbl{font-family:'Oswald',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;pointer-events:none}
+.room .dim{font-size:8px;color:rgba(255,255,255,0.4);pointer-events:none;margin-top:1px}
+.room .sqf{font-size:8px;color:#c9a84c;pointer-events:none}
+.room .ico{font-size:14px;pointer-events:none;margin-bottom:2px}
 
-  /* Colors */
-  .c-kit { background:rgba(217,31,31,0.12); border:2px solid rgba(217,31,31,0.5); }
-  .c-din { background:rgba(201,168,76,0.06); border:2px solid rgba(201,168,76,0.2); }
-  .c-ban { background:rgba(100,149,237,0.1); border:2px solid rgba(100,149,237,0.4); }
-  .c-rr { background:rgba(255,255,255,0.04); border:2px solid rgba(255,255,255,0.15); }
-  .c-ofc { background:rgba(144,238,144,0.08); border:2px solid rgba(144,238,144,0.35); }
-  .c-str { background:rgba(255,165,0,0.08); border:2px solid rgba(255,165,0,0.35); }
-  .c-clr { background:rgba(0,191,255,0.1); border:2px solid rgba(0,191,255,0.45); }
-  .c-bar { background:rgba(201,168,76,0.12); border:3px solid rgba(201,168,76,0.5); }
-  .c-dt { background:rgba(217,31,31,0.15); border:2px solid rgba(217,31,31,0.6); }
-  .c-ent { background:rgba(255,255,255,0.06); border:2px solid rgba(255,255,255,0.2); }
-  .c-hal { background:rgba(255,255,255,0.025); border:1px dashed rgba(255,255,255,0.1); }
+/* Resize handle */
+.room .resize{position:absolute;right:0;bottom:0;width:12px;height:12px;cursor:nwse-resize;z-index:5}
+.room .resize::after{content:'';position:absolute;right:2px;bottom:2px;width:8px;height:8px;border-right:2px solid rgba(255,255,255,0.2);border-bottom:2px solid rgba(255,255,255,0.2)}
 
-  .tbl { position:absolute; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); border-radius:3px; width:20px; height:20px; }
-  .stl { position:absolute; width:8px; height:8px; border-radius:50%; border:1.5px solid rgba(201,168,76,0.6); background:rgba(201,168,76,0.15); }
-  .win { position:absolute; bottom:0; left:0; right:0; height:6px; background:repeating-linear-gradient(90deg,rgba(100,200,255,0.4) 0,rgba(100,200,255,0.4) 18px,rgba(255,255,255,0.04) 18px,rgba(255,255,255,0.04) 22px); z-index:2; }
-  .gdoor { position:absolute; height:5px; background:repeating-linear-gradient(90deg,#c9a84c 0,#c9a84c 10px,transparent 10px,transparent 14px); opacity:.5; }
-  .wl { position:absolute; font-size:7px; color:rgba(255,255,255,0.2); font-family:'Oswald',sans-serif; letter-spacing:2px; text-transform:uppercase; }
-  .dm { position:absolute; background:#c9a84c; border-radius:2px; opacity:.6; }
-  .fa { position:absolute; color:rgba(201,168,76,0.35); font-size:12px; z-index:3; }
+/* Room type colors */
+.t-kitchen{background:rgba(217,31,31,0.12);border:2px solid rgba(217,31,31,0.5)}
+.t-dining{background:rgba(201,168,76,0.06);border:2px solid rgba(201,168,76,0.2)}
+.t-banquet{background:rgba(100,149,237,0.1);border:2px solid rgba(100,149,237,0.4)}
+.t-restroom{background:rgba(255,255,255,0.04);border:2px solid rgba(255,255,255,0.15)}
+.t-office{background:rgba(144,238,144,0.08);border:2px solid rgba(144,238,144,0.35)}
+.t-storage{background:rgba(255,165,0,0.08);border:2px solid rgba(255,165,0,0.35)}
+.t-cooler{background:rgba(0,191,255,0.1);border:2px solid rgba(0,191,255,0.45)}
+.t-bar{background:rgba(201,168,76,0.12);border:3px solid rgba(201,168,76,0.5)}
+.t-drivethru{background:rgba(217,31,31,0.15);border:2px solid rgba(217,31,31,0.6)}
+.t-entry{background:rgba(255,255,255,0.06);border:2px solid rgba(255,255,255,0.2)}
+.t-hallway{background:rgba(255,255,255,0.025);border:1px dashed rgba(255,255,255,0.1)}
+.t-pos{background:rgba(201,168,76,0.04);border:2px dashed rgba(201,168,76,0.2)}
 
-  .pn { width: 240px; }
-  .pn h3 { font-family:'Oswald',sans-serif; font-size:14px; letter-spacing:2px; text-transform:uppercase; color:#d91f1f; margin-bottom:8px; }
-  .ps { margin-bottom:14px; }
-  .rl { list-style:none; }
-  .rl li { display:flex; justify-content:space-between; padding:5px 0; border-bottom:1px solid #161616; font-size:10px; }
-  .rl .rn { color:#bbb; } .rl .rd { color:#555; } .rl .rs { color:#c9a84c; font-weight:600; }
-  .lg { display:grid; grid-template-columns:1fr 1fr; gap:4px; }
-  .li { display:flex; align-items:center; gap:5px; font-size:9px; color:#777; }
-  .ls { width:10px; height:10px; border-radius:2px; flex-shrink:0; }
-  .nt { font-size:10px; color:#555; line-height:1.7; }
-  .nt strong { color:#888; }
-
-  @media(max-width:700px){ .wrap{flex-direction:column;align-items:center;} .pn{width:400px;max-width:100%;} }
+/* Side panel */
+.panel{position:fixed;top:76px;right:0;bottom:0;width:240px;background:#111;border-left:1px solid #222;overflow-y:auto;padding:16px;z-index:50}
+.panel h3{font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:#d91f1f;margin:0 0 8px}
+.panel-section{margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid #1a1a1a}
+.room-list{list-style:none}
+.room-list li{display:flex;justify-content:space-between;padding:4px 0;font-size:10px;cursor:pointer;border-radius:3px;padding:4px 6px;transition:background .15s}
+.room-list li:hover{background:rgba(217,31,31,0.1)}
+.room-list .rn{color:#bbb}.room-list .rs{color:#c9a84c;font-weight:600}
+.add-room{width:100%;padding:8px;background:#1a1a1a;border:1px dashed #333;border-radius:4px;color:#888;font-size:11px;cursor:pointer;text-align:center;transition:all .15s;font-family:'Oswald',sans-serif;letter-spacing:1px;text-transform:uppercase}
+.add-room:hover{border-color:#d91f1f;color:#d91f1f}
+select.type-sel{width:100%;padding:6px;background:#1a1a1a;border:1px solid #333;border-radius:4px;color:#ccc;font-size:11px;margin-bottom:8px}
+.hint{font-size:9px;color:#444;line-height:1.5;margin-top:6px}
 </style>
 </head>
 <body>
 
-<div class="header">
-  <h1>🍕 Pizza World — <span>New Store Blueprint</span></h1>
-  <div class="sub">40' × 100' • 4,000 sq ft • 10px = 1ft • v4 — Matches Ryan's Sketch</div>
+<div class="toolbar">
+  <div class="title">🍕 Pizza World — <span>Floor Plan Editor</span></div>
+  <div class="actions">
+    <button class="btn" onclick="toggleSnap()" id="snapBtn">Grid Snap: ON</button>
+    <button class="btn" onclick="resetLayout()">Reset</button>
+    <button class="btn" onclick="exportLayout()">💾 Save Layout</button>
+  </div>
 </div>
 
-<div class="stats">
-  <div class="stat"><div class="v">4,000</div><div class="l">Sq Ft</div></div>
-  <div class="stat"><div class="v">40'×100'</div><div class="l">Dims</div></div>
-  <div class="stat"><div class="v">~95</div><div class="l">Seats</div></div>
-  <div class="stat"><div class="v">11</div><div class="l">Rooms</div></div>
+<div class="info-bar">
+  <span>40' × 100' (4,000 sq ft)</span>
+  <span>Scale: 10px = 1 foot</span>
+  <span>Grid: 2ft squares</span>
+  <span id="coordsDisplay">—</span>
 </div>
 
-<div class="wrap">
-<div class="bp">
-
-  <!--
-  ══════════════════════════════════════════════════
-   TOP = BACK OF BUILDING / BOTTOM = FRONT (ENTRY)
-   
-   BACK WALL
-   ┌──────────────────┬──┬──────┬──────┬──────┐
-   │                  │  │      │      │      │
-   │                  │H │  RR  │  RR  │Office│
-   │    KITCHEN       │A │ 8×8  │ 8×8  │8×12  │
-   │    16' × 56'     │L │      │      │      │
-   │    896 sq ft     │L │──────┴──────┤      │
-   │                  │  │             ├──────┤
-   │                  │4'│  BANQUET    │Strge │
-   │                  │W │  ROOM      │8×12  │
-   │                  │I │  18' × 24' │      │
-   │                  │D │  432 sf    ├──────┤
-   │                  │E │            │Cooler│
-   │                  │  │            │8×12  │
-   ├──────────────────┤  │════════════╡      │
-   │                  │  │ garage door│      │
-   │   DINING AREA    │  │            └──────┘
-   │                  │  │
-   │   ┌──────┐       │  │
-   │   │ BAR  │       │  │
-   │   │  L   │       │  │
-   │   └──────┘       │  │
-   │                  │  │
-   │   tables tables  │  │
-   │                  │  │
-   │   window seats   │  │  [ENTRY]
-   └──────────────────┴──┴─────────────────────┘
-   FRONT WALL — WINDOWS
-  ══════════════════════════════════════════════════
-  -->
-
-  <!-- ═══ KITCHEN — left side, 16' × 56' ═══ -->
-  <div class="rm c-kit" style="left:0;top:0;width:160px;height:560px;">
-    <div class="ic">🔥</div>
-    <div class="n">Kitchen</div>
-    <div class="d">16' × 56'</div>
-    <div class="a">896 sq ft</div>
-  </div>
-
-  <!-- Drive-Thru on left wall -->
-  <div class="rm c-dt" style="left:-26px;top:200px;width:30px;height:70px;">
-    <div class="n" style="font-size:7px;writing-mode:vertical-rl;letter-spacing:2px;">Drive-Thru</div>
-  </div>
-  <div class="dm" style="left:0;top:225px;width:4px;height:18px;"></div>
-
-  <!-- Back door -->
-  <div class="dm" style="left:0;top:8px;width:4px;height:20px;"></div>
-  <div class="wl" style="left:8px;top:12px;">◄ Back Door</div>
-
-  <!-- ═══ HALLWAY — 4' wide, runs vertically between kitchen and right rooms ═══ -->
-  <div class="rm c-hal" style="left:160px;top:0;width:40px;height:560px;">
-    <div class="n" style="font-size:7px;color:rgba(255,255,255,0.3);writing-mode:vertical-rl;letter-spacing:3px;">← Hallway (4' wide) →</div>
-  </div>
-
-  <!-- Flow arrows in hallway showing customer path -->
-  <div class="fa" style="left:172px;top:540px;">↑</div>
-  <div class="fa" style="left:172px;top:510px;">↑</div>
-  <div class="fa" style="left:172px;top:480px;">↑</div>
-  <div class="fa" style="left:172px;top:450px;">↑</div>
-  <div class="fa" style="left:172px;top:420px;">↑</div>
-  <div class="fa" style="left:172px;top:390px;">↑</div>
-  <div class="wl" style="left:155px;top:555px;color:rgba(201,168,76,0.3);font-size:7px;">To RRs ↑</div>
-
-  <!-- ═══ RIGHT SIDE — top to bottom: RR, RR, Office, Banquet, then Storage, Cooler stacked ═══ -->
-
-  <!-- RESTROOM 1 — 8' × 8' -->
-  <div class="rm c-rr" style="left:200px;top:0;width:80px;height:80px;">
-    <div class="ic">🚺</div>
-    <div class="n" style="font-size:10px;">Women's RR</div>
-    <div class="d">8' × 8'</div>
-  </div>
-
-  <!-- RESTROOM 2 — 8' × 8' -->
-  <div class="rm c-rr" style="left:280px;top:0;width:80px;height:80px;">
-    <div class="ic">🚹</div>
-    <div class="n" style="font-size:10px;">Men's RR</div>
-    <div class="d">8' × 8'</div>
-  </div>
-
-  <!-- OFFICE — 8' × 12' -->
-  <div class="rm c-ofc" style="left:360px;top:0;width:40px;height:120px;">
-    <div class="n" style="font-size:8px;writing-mode:vertical-rl;">🏢 Office</div>
-    <div class="d" style="writing-mode:vertical-rl;">8'×12'</div>
-  </div>
-
-  <!-- Wait — office should be wider. Let me reconfigure right side based on sketch:
-       The right column is 20' wide (200px). From top:
-       - RR (8×8) + RR (8×8) side by side = 16' wide, 8' deep
-       - Office 8×12 = next to RRs or below
-       Let me match the sketch more precisely: rooms are stacked vertically on the right -->
-
-  <!-- Actually, re-reading the sketch: along the right wall from back to front:
-       Cooler 8×12 (back corner) → Storage 8×12 → Office 8×12 → RR 8×8 + RR 8×8 → Banquet Room
-       The hallway separates kitchen from all these rooms -->
-
-  <!-- Let me redo the right side properly -->
-</div>
+<div class="canvas-wrap" id="canvasWrap">
+  <div class="canvas" id="canvas" style="width:400px;height:1000px;"></div>
 </div>
 
-<!-- I need to restart this more carefully -->
+<div class="panel">
+  <div class="panel-section">
+    <h3>Rooms</h3>
+    <ul class="room-list" id="roomList"></ul>
+  </div>
+  <div class="panel-section">
+    <h3>Add Room</h3>
+    <select class="type-sel" id="newType">
+      <option value="kitchen">🔥 Kitchen</option>
+      <option value="dining">🍽️ Dining</option>
+      <option value="banquet">🎉 Banquet</option>
+      <option value="bar">🍺 Bar</option>
+      <option value="restroom">🚻 Restroom</option>
+      <option value="office">🏢 Office</option>
+      <option value="storage">📦 Storage</option>
+      <option value="cooler">❄️ Cooler</option>
+      <option value="hallway">↔️ Hallway</option>
+      <option value="drivethru">🚗 Drive-Thru</option>
+      <option value="entry">🚪 Entry</option>
+      <option value="pos">🧾 POS/Counter</option>
+    </select>
+    <div class="add-room" onclick="addRoom()">+ Add Room</div>
+  </div>
+  <div class="panel-section">
+    <h3>Selected Room</h3>
+    <div id="selectedInfo" style="font-size:10px;color:#666;">Click a room to select it</div>
+  </div>
+  <div class="panel-section">
+    <h3>Instructions</h3>
+    <div class="hint">
+      <strong style="color:#888;">Drag</strong> rooms to reposition<br>
+      <strong style="color:#888;">Resize</strong> via bottom-right corner handle<br>
+      <strong style="color:#888;">Click</strong> room to select → see details<br>
+      <strong style="color:#888;">Delete</strong> key removes selected room<br>
+      <strong style="color:#888;">Grid Snap</strong> aligns to 2ft grid<br>
+      <strong style="color:#888;">Save</strong> exports layout to clipboard
+    </div>
+  </div>
+</div>
 
 <script>
-// Clear and rebuild - the static HTML above is a partial. Let me do it right.
-document.querySelector('.bp').innerHTML = '';
+const SCALE = 10; // px per foot
+const GRID = 20;  // snap to 2ft = 20px
+let snap = true;
+let rooms = [];
+let selectedRoom = null;
+let dragState = null;
 
-const bp = document.querySelector('.bp');
+const icons = {kitchen:'🔥',dining:'🍽️',banquet:'🎉',bar:'🍺',restroom:'🚻',office:'🏢',storage:'📦',cooler:'❄️',hallway:'↔️',drivethru:'🚗',entry:'🚪',pos:'🧾'};
+const defaults = {kitchen:[160,300],dining:[400,440],banquet:[200,240],bar:[120,160],restroom:[80,80],office:[120,80],storage:[120,80],cooler:[80,120],hallway:[40,560],drivethru:[30,70],entry:[60,60],pos:[100,150]};
 
-function room(cls, x, y, w, h, icon, name, dims, area, extra) {
-  const d = document.createElement('div');
-  d.className = 'rm ' + cls;
-  d.style.cssText = 'left:'+x+'px;top:'+y+'px;width:'+w+'px;height:'+h+'px;';
-  let html = '';
-  if (icon) html += '<div class="ic">'+icon+'</div>';
-  if (name) html += '<div class="n">'+name+'</div>';
-  if (dims) html += '<div class="d">'+dims+'</div>';
-  if (area) html += '<div class="a">'+area+'</div>';
-  if (extra) html += extra;
-  d.innerHTML = html;
-  bp.appendChild(d);
+// Initial layout matching Ryan's sketch
+const initial = [
+  {type:'kitchen',x:0,y:0,w:160,h:560,name:'Kitchen'},
+  {type:'hallway',x:160,y:0,w:40,h:560,name:'Hallway'},
+  {type:'cooler',x:320,y:0,w:80,h:120,name:'Cooler'},
+  {type:'storage',x:200,y:0,w:120,h:80,name:'Storage'},
+  {type:'office',x:200,y:80,w:120,h:80,name:'Office'},
+  {type:'restroom',x:200,y:160,w:80,h:80,name:"Women's RR"},
+  {type:'restroom',x:280,y:160,w:80,h:80,name:"Men's RR"},
+  {type:'banquet',x:200,y:260,w:200,h:240,name:'Banquet Room'},
+  {type:'dining',x:0,y:560,w:400,h:434,name:'Main Dining'},
+  {type:'bar',x:30,y:580,w:24,h:160,name:'Bar (Vert)'},
+  {type:'bar',x:30,y:740,w:120,h:24,name:'Bar (Horiz)'},
+  {type:'entry',x:340,y:940,w:56,h:56,name:'Entry'},
+  {type:'drivethru',x:-26,y:200,w:30,h:70,name:'Drive-Thru'},
+];
+
+function init() {
+  // Load saved or use initial
+  const saved = localStorage.getItem('pw_floorplan');
+  const data = saved ? JSON.parse(saved) : initial;
+  rooms = [];
+  document.getElementById('canvas').innerHTML = '';
+  data.forEach(r => createRoom(r));
+  updateRoomList();
 }
 
-function el(tag, styles) {
-  const d = document.createElement('div');
-  d.className = tag;
-  d.style.cssText = styles;
-  bp.appendChild(d);
+function createRoom(cfg) {
+  const el = document.createElement('div');
+  el.className = 'room t-' + cfg.type;
+  el.style.left = cfg.x + 'px';
+  el.style.top = cfg.y + 'px';
+  el.style.width = cfg.w + 'px';
+  el.style.height = cfg.h + 'px';
+  
+  const wFt = Math.round(cfg.w / SCALE);
+  const hFt = Math.round(cfg.h / SCALE);
+  const sf = wFt * hFt;
+  
+  el.innerHTML = '<div class="ico">' + (icons[cfg.type]||'') + '</div>' +
+    '<div class="lbl">' + (cfg.name || cfg.type) + '</div>' +
+    '<div class="dim">' + wFt + "' × " + hFt + "'</div>" +
+    '<div class="sqf">' + sf + ' sf</div>' +
+    '<div class="resize"></div>';
+  
+  const room = {el, type:cfg.type, name:cfg.name||cfg.type};
+  rooms.push(room);
+  
+  // Drag
+  el.addEventListener('mousedown', e => {
+    if (e.target.classList.contains('resize')) return;
+    e.preventDefault();
+    selectRoom(room);
+    el.classList.add('dragging');
+    const rect = el.getBoundingClientRect();
+    const canvasRect = document.getElementById('canvas').getBoundingClientRect();
+    dragState = {room, mode:'move', ox: e.clientX - rect.left, oy: e.clientY - rect.top, canvasX: canvasRect.left, canvasY: canvasRect.top};
+  });
+  
+  // Resize
+  el.querySelector('.resize').addEventListener('mousedown', e => {
+    e.preventDefault();
+    e.stopPropagation();
+    selectRoom(room);
+    const canvasRect = document.getElementById('canvas').getBoundingClientRect();
+    dragState = {room, mode:'resize', startX: e.clientX, startY: e.clientY, startW: el.offsetWidth, startH: el.offsetHeight, canvasX: canvasRect.left, canvasY: canvasRect.top};
+  });
+  
+  el.addEventListener('click', e => { e.stopPropagation(); selectRoom(room); });
+  
+  document.getElementById('canvas').appendChild(el);
+  return room;
 }
 
-// ═══ KITCHEN — left side, full height of back area: 16' wide × 56' tall ═══
-// 16' = 160px, 56' = 560px
-room('c-kit', 0, 0, 160, 560, '🔥', 'Kitchen', "16' × 56'", '896 sq ft');
+document.addEventListener('mousemove', e => {
+  if (!dragState) return;
+  const {room, mode} = dragState;
+  const el = room.el;
+  
+  if (mode === 'move') {
+    let x = e.clientX - dragState.canvasX - dragState.ox + document.getElementById('canvasWrap').scrollLeft;
+    let y = e.clientY - dragState.canvasY - dragState.oy + document.getElementById('canvasWrap').scrollTop;
+    if (snap) { x = Math.round(x/GRID)*GRID; y = Math.round(y/GRID)*GRID; }
+    el.style.left = x + 'px';
+    el.style.top = y + 'px';
+  } else if (mode === 'resize') {
+    let w = dragState.startW + (e.clientX - dragState.startX);
+    let h = dragState.startH + (e.clientY - dragState.startY);
+    if (snap) { w = Math.max(GRID, Math.round(w/GRID)*GRID); h = Math.max(GRID, Math.round(h/GRID)*GRID); }
+    else { w = Math.max(20, w); h = Math.max(20, h); }
+    el.style.width = w + 'px';
+    el.style.height = h + 'px';
+  }
+  updateLabels(room);
+  updateCoords(e);
+});
 
-// Drive-thru bump-out
-room('c-dt', -26, 200, 30, 70, '', '', '', '', '<div class="n" style="font-size:7px;writing-mode:vertical-rl;letter-spacing:2px;">Drive-Thru</div>');
+document.addEventListener('mouseup', () => {
+  if (dragState) {
+    dragState.room.el.classList.remove('dragging');
+    dragState = null;
+    updateRoomList();
+    autoSave();
+  }
+});
 
-// ═══ HALLWAY — 4' wide (40px), full height of back area ═══
-room('c-hal', 160, 0, 40, 560, '', '', '', '', '<div class="n" style="font-size:7px;color:rgba(255,255,255,0.25);writing-mode:vertical-rl;letter-spacing:3px;">↑ Customer Hallway (4\' wide) ↓</div>');
-
-// ═══ RIGHT COLUMN — 20' wide (200px), stacked rooms from BACK (top) to FRONT (bottom) ═══
-// From back to front: Cooler → Storage → Office → RR+RR (side by side) → Banquet Room
-
-// COOLER — 8' × 12' (back-right corner)
-room('c-clr', 320, 0, 80, 120, '❄️', 'Cooler', "8' × 12'", '96 sf');
-
-// STORAGE — 8' × 12'  
-room('c-str', 200, 0, 120, 80, '📦', 'Storage', "12' × 8'", '96 sf');
-
-// OFFICE — 8' × 12'
-room('c-ofc', 200, 80, 120, 80, '🏢', 'Office', "12' × 8'", '96 sf');
-
-// RESTROOM 1 — 8' × 8'
-room('c-rr', 200, 160, 80, 80, '🚺', "Women's", "8' × 8'", '64 sf');
-
-// RESTROOM 2 — 8' × 8'
-room('c-rr', 280, 160, 80, 80, '🚹', "Men's", "8' × 8'", '64 sf');
-
-// Small connector from hallway to RR area
-room('c-hal', 200, 240, 160, 20, '', '', '', '', '<div style="font-size:7px;color:rgba(255,255,255,0.2);">← hallway access →</div>');
-
-// ═══ BANQUET ROOM — 18' × 24' (below restrooms, right side) ═══
-room('c-ban', 200, 260, 200, 240, '🎉', 'Banquet Room', "20' × 24'", '480 sq ft', '<div style="font-size:7px;color:rgba(255,255,255,0.25);margin-top:4px;">↕ Garage Door Below</div>');
-
-// Banquet tables
-for (let row = 0; row < 3; row++) {
-  el('tbl', 'left:220px;top:'+(300+row*40)+'px;');
-  el('tbl', 'left:260px;top:'+(300+row*40)+'px;');
-  el('tbl', 'left:310px;top:'+(300+row*40)+'px;');
-  el('tbl', 'left:350px;top:'+(300+row*40)+'px;');
+function updateLabels(room) {
+  const el = room.el;
+  const w = Math.round(el.offsetWidth / SCALE);
+  const h = Math.round(el.offsetHeight / SCALE);
+  el.querySelector('.dim').textContent = w + "' × " + h + "'";
+  el.querySelector('.sqf').textContent = (w*h) + ' sf';
+  updateSelectedInfo();
 }
 
-// Garage door line between banquet and dining
-const gd = document.createElement('div');
-gd.className = 'gdoor';
-gd.style.cssText = 'left:200px;top:498px;width:200px;';
-bp.appendChild(gd);
+function selectRoom(room) {
+  if (selectedRoom) selectedRoom.el.classList.remove('selected');
+  selectedRoom = room;
+  room.el.classList.add('selected');
+  updateSelectedInfo();
+}
 
-// ═══ DINING AREA — full width, from below kitchen/banquet to front ═══
-room('c-din', 0, 560, 400, 434, '', '', '', '', '<div class="n" style="margin-top:8px;font-size:14px;">🍽️ Main Dining</div><div class="d">40\' × ~44\'</div><div class="a">~1,760 sq ft</div>');
+function updateSelectedInfo() {
+  const info = document.getElementById('selectedInfo');
+  if (!selectedRoom) { info.innerHTML = 'Click a room to select it'; return; }
+  const el = selectedRoom.el;
+  const x = Math.round(parseInt(el.style.left)/SCALE);
+  const y = Math.round(parseInt(el.style.top)/SCALE);
+  const w = Math.round(el.offsetWidth/SCALE);
+  const h = Math.round(el.offsetHeight/SCALE);
+  info.innerHTML = '<div style="color:#c9a84c;font-weight:700;font-size:12px;margin-bottom:4px;">' + (icons[selectedRoom.type]||'') + ' ' + selectedRoom.name + '</div>' +
+    'Type: ' + selectedRoom.type + '<br>' +
+    'Position: ' + x + "', " + y + "'<br>" +
+    'Size: ' + w + "' × " + h + "' (" + (w*h) + ' sf)<br>' +
+    '<span style="color:#555;font-size:9px;">Press Delete to remove</span>';
+}
 
-// ═══ L-SHAPED BAR — front-left of dining ═══
-// Vertical part: 2' wide × 22' tall
-room('c-bar', 30, 580, 24, 160, '', '', '', '', '<div class="n" style="font-size:8px;writing-mode:vertical-rl;">Bar</div>');
-// Horizontal part: 12' wide × 2' tall
-room('c-bar', 30, 740, 120, 24, '', '🍺 Bar', '', '');
+function updateCoords(e) {
+  const canvas = document.getElementById('canvas');
+  const rect = canvas.getBoundingClientRect();
+  const x = Math.round((e.clientX - rect.left) / SCALE);
+  const y = Math.round((e.clientY - rect.top) / SCALE);
+  document.getElementById('coordsDisplay').textContent = x + "', " + y + "'";
+}
 
-// Bar stools — right side of vertical
-for (let i = 0; i < 6; i++) el('stl', 'left:60px;top:'+(590+i*24)+'px;');
-// Bar stools — front of horizontal
-for (let i = 0; i < 5; i++) el('stl', 'left:'+(40+i*22)+'px;top:770px;');
+function updateRoomList() {
+  const ul = document.getElementById('roomList');
+  ul.innerHTML = '';
+  rooms.forEach((r,i) => {
+    const li = document.createElement('li');
+    const w = Math.round(r.el.offsetWidth/SCALE);
+    const h = Math.round(r.el.offsetHeight/SCALE);
+    li.innerHTML = '<span class="rn">' + (icons[r.type]||'') + ' ' + r.name + '</span><span class="rs">' + (w*h) + ' sf</span>';
+    li.onclick = () => { selectRoom(r); r.el.scrollIntoView({behavior:'smooth',block:'center'}); };
+    ul.appendChild(li);
+  });
+}
 
-// ═══ DINING TABLES ═══
-// Right section: 4 columns × 4 rows
-for (let r = 0; r < 4; r++) {
-  for (let c = 0; c < 4; c++) {
-    el('tbl', 'left:'+(190+c*50)+'px;top:'+(590+r*44)+'px;');
+function addRoom() {
+  const type = document.getElementById('newType').value;
+  const [dw,dh] = defaults[type] || [100,100];
+  const r = createRoom({type, x:100, y:500, w:dw, h:dh, name: type.charAt(0).toUpperCase()+type.slice(1)});
+  selectRoom(r);
+  updateRoomList();
+  autoSave();
+}
+
+// Delete key
+document.addEventListener('keydown', e => {
+  if (e.key === 'Delete' || e.key === 'Backspace') {
+    if (selectedRoom && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'SELECT') {
+      e.preventDefault();
+      const idx = rooms.indexOf(selectedRoom);
+      if (idx > -1) {
+        selectedRoom.el.remove();
+        rooms.splice(idx, 1);
+        selectedRoom = null;
+        document.getElementById('selectedInfo').innerHTML = 'Click a room to select it';
+        updateRoomList();
+        autoSave();
+      }
+    }
+  }
+});
+
+// Click canvas to deselect
+document.getElementById('canvas').addEventListener('click', () => {
+  if (selectedRoom) { selectedRoom.el.classList.remove('selected'); selectedRoom = null; updateSelectedInfo(); }
+});
+
+function toggleSnap() {
+  snap = !snap;
+  document.getElementById('snapBtn').textContent = 'Grid Snap: ' + (snap ? 'ON' : 'OFF');
+  document.getElementById('snapBtn').classList.toggle('active', snap);
+}
+
+function getLayoutData() {
+  return rooms.map(r => ({
+    type: r.type,
+    name: r.name,
+    x: parseInt(r.el.style.left),
+    y: parseInt(r.el.style.top),
+    w: r.el.offsetWidth,
+    h: r.el.offsetHeight
+  }));
+}
+
+function autoSave() {
+  localStorage.setItem('pw_floorplan', JSON.stringify(getLayoutData()));
+}
+
+function exportLayout() {
+  const data = getLayoutData();
+  const text = JSON.stringify(data, null, 2);
+  navigator.clipboard.writeText(text).then(() => {
+    alert('Layout saved to clipboard! You can also find it in your browser localStorage under "pw_floorplan".');
+  }).catch(() => {
+    // Fallback
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    alert('Layout copied to clipboard!');
+  });
+}
+
+function resetLayout() {
+  if (confirm('Reset to original layout? This will undo all your changes.')) {
+    localStorage.removeItem('pw_floorplan');
+    init();
   }
 }
 
-// Mid section tables (below bar)
-for (let r = 0; r < 2; r++) {
-  for (let c = 0; c < 8; c++) {
-    el('tbl', 'left:'+(20+c*48)+'px;top:'+(810+r*44)+'px;');
-  }
-}
+// Track mouse for coords
+document.getElementById('canvasWrap').addEventListener('mousemove', updateCoords);
 
-// Window row tables
-for (let c = 0; c < 8; c++) {
-  el('tbl', 'left:'+(20+c*48)+'px;top:920px;');
-}
-
-// ═══ ENTRY — bottom right ═══
-room('c-ent', 340, 940, 56, 56, '🚪', '', '', '', '<div class="n" style="font-size:9px;">Entry</div>');
-
-// Windows
-const w = document.createElement('div');
-w.className = 'win';
-bp.appendChild(w);
-
-// Back door marker
-el('dm', 'left:0;top:8px;width:4px;height:20px;');
-
-// Drive-thru door
-el('dm', 'left:0;top:225px;width:4px;height:18px;');
-
-// Entry door
-el('dm', 'right:14px;bottom:0;width:24px;height:4px;');
-
-// Labels
-function lbl(x, y, text, extra) {
-  const d = document.createElement('div');
-  d.className = 'wl';
-  d.style.cssText = 'left:'+x+'px;top:'+y+'px;'+(extra||'');
-  d.textContent = text;
-  bp.appendChild(d);
-}
-lbl(6, 12, '◄ Back Door');
-lbl(100, 990, '── storefront windows ──', 'z-index:3;left:50%;transform:translateX(-50%);bottom:8px;top:auto;');
+init();
 </script>
-
-<!-- Side panel outside the script-rebuilt blueprint -->
-<div class="pn" style="margin-left:20px;">
-
-  <div class="ps">
-    <h3>Room Breakdown</h3>
-    <ul class="rl">
-      <li><span class="rn">🔥 Kitchen</span><span class="rd">16' × 56'</span><span class="rs">896 sf</span></li>
-      <li><span class="rn">🍽️ Main Dining</span><span class="rd">40' × 44'</span><span class="rs">1,760 sf</span></li>
-      <li><span class="rn">🎉 Banquet</span><span class="rd">20' × 24'</span><span class="rs">480 sf</span></li>
-      <li><span class="rn">🍺 L-Bar</span><span class="rd">L-shape</span><span class="rs">11 stools</span></li>
-      <li><span class="rn">❄️ Cooler</span><span class="rd">8' × 12'</span><span class="rs">96 sf</span></li>
-      <li><span class="rn">📦 Storage</span><span class="rd">12' × 8'</span><span class="rs">96 sf</span></li>
-      <li><span class="rn">🏢 Office</span><span class="rd">12' × 8'</span><span class="rs">96 sf</span></li>
-      <li><span class="rn">🚺 Women's RR</span><span class="rd">8' × 8'</span><span class="rs">64 sf</span></li>
-      <li><span class="rn">🚹 Men's RR</span><span class="rd">8' × 8'</span><span class="rs">64 sf</span></li>
-      <li><span class="rn">↔️ Hallway</span><span class="rd">4' wide</span><span class="rs">Full length</span></li>
-      <li><span class="rn">🚪 Entry</span><span class="rd">Front right</span><span class="rs">—</span></li>
-    </ul>
-  </div>
-
-  <div class="ps">
-    <h3>Seating</h3>
-    <ul class="rl">
-      <li><span class="rn">Right tables (4×4)</span><span class="rs">16 → 64 seats</span></li>
-      <li><span class="rn">Mid + window tables</span><span class="rs">24 → ~48 seats</span></li>
-      <li><span class="rn">Bar stools</span><span class="rs">11</span></li>
-      <li><span class="rn">Banquet tables</span><span class="rs">~24</span></li>
-      <li style="border-top:2px solid #222;padding-top:6px;"><span class="rn" style="color:#c9a84c;font-weight:700;">Total</span><span class="rs" style="font-size:12px;">~95 + 24 banquet</span></li>
-    </ul>
-  </div>
-
-  <div class="ps">
-    <h3>Customer Flow ✅</h3>
-    <div class="nt">
-      <strong>🚻 To Restrooms:</strong><br>
-      Dining → walk up the <strong>4' hallway</strong> (between kitchen wall & banquet room) → restrooms are straight ahead<br><br>
-      <strong>🚪 Customer Path:</strong><br>
-      Entry (front right) → Dining<br>
-      Dining → Hallway → Restrooms<br>
-      Banquet ↔ Dining (garage door)<br><br>
-      <strong>🔥 Staff Only:</strong><br>
-      Back Door → Kitchen<br>
-      Kitchen → Hallway → Cooler/Storage<br>
-      Kitchen → Drive-Thru Window
-    </div>
-  </div>
-
-  <div class="ps">
-    <h3>Legend</h3>
-    <div class="lg">
-      <div class="li"><div class="ls" style="background:rgba(217,31,31,0.2);border:2px solid rgba(217,31,31,0.5);"></div>Kitchen</div>
-      <div class="li"><div class="ls" style="background:rgba(201,168,76,0.1);border:2px solid rgba(201,168,76,0.3);"></div>Dining/Bar</div>
-      <div class="li"><div class="ls" style="background:rgba(100,149,237,0.12);border:2px solid rgba(100,149,237,0.4);"></div>Banquet</div>
-      <div class="li"><div class="ls" style="background:rgba(0,191,255,0.12);border:2px solid rgba(0,191,255,0.45);"></div>Cooler</div>
-      <div class="li"><div class="ls" style="background:rgba(255,165,0,0.1);border:2px solid rgba(255,165,0,0.35);"></div>Storage</div>
-      <div class="li"><div class="ls" style="background:rgba(144,238,144,0.1);border:2px solid rgba(144,238,144,0.35);"></div>Office</div>
-      <div class="li"><div class="ls" style="background:rgba(255,255,255,0.04);border:2px solid rgba(255,255,255,0.15);"></div>Restrooms</div>
-      <div class="li"><div class="ls" style="background:rgba(217,31,31,0.15);border:2px solid rgba(217,31,31,0.6);"></div>Drive-Thru</div>
-    </div>
-  </div>
-
-  <div class="ps">
-    <h3>Key Features</h3>
-    <div class="nt">
-      <strong>✅ 4' hallway</strong> separates kitchen from all right-side rooms — customers walk straight to restrooms<br>
-      <strong>🏗️ Right column stacks:</strong> Cooler → Storage → Office → RRs → Banquet (top to bottom)<br>
-      <strong>🚗 Drive-thru</strong> on left wall<br>
-      <strong>🎉 Garage door</strong> opens banquet into dining<br>
-      <strong>🍺 L-Bar</strong> front-left, 11 stools<br>
-      <strong>🪟 Full window wall</strong> across front
-    </div>
-  </div>
-
-</div>
-</div>
-
 </body>
 </html>
