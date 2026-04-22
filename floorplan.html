@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pizza World — New Store Floor Plan (37' × 100')</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0a0a0a; color: #fff; font-family: 'Segoe UI', Arial, sans-serif; padding: 20px; }
+  h1 { text-align: center; font-size: 24px; margin-bottom: 4px; letter-spacing: 2px; text-transform: uppercase; }
+  .subtitle { text-align: center; color: #888; font-size: 13px; margin-bottom: 20px; }
+  .plan-wrapper { display: flex; justify-content: center; padding: 10px; }
+  .plan {
+    position: relative;
+    width: 370px; /* 37ft × 10px/ft */
+    height: 1000px; /* 100ft × 10px/ft */
+    background: #1a1a1a;
+    border: 3px solid #555;
+    overflow: hidden;
+  }
+  .room {
+    position: absolute;
+    border: 2px solid #666;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 600;
+    transition: all 0.2s;
+    cursor: default;
+  }
+  .room:hover { border-color: #d91f1f; z-index: 10; }
+  .room .label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+  .room .dims { font-size: 9px; color: #999; margin-top: 2px; }
+  .room .sqft { font-size: 9px; color: #c9a84c; margin-top: 1px; }
+
+  /* Room colors */
+  .kitchen { background: rgba(217,31,31,0.15); border-color: #d91f1f; }
+  .dining { background: rgba(201,168,76,0.1); border-color: #c9a84c; }
+  .banquet { background: rgba(100,149,237,0.12); border-color: cornflowerblue; }
+  .restroom { background: rgba(255,255,255,0.06); border-color: #555; }
+  .office { background: rgba(144,238,144,0.1); border-color: #6a6; }
+  .storage { background: rgba(255,165,0,0.1); border-color: orange; }
+  .cooler { background: rgba(0,191,255,0.12); border-color: deepskyblue; }
+  .bar { background: rgba(201,168,76,0.2); border-color: #c9a84c; border-width: 3px; }
+  .hallway { background: rgba(255,255,255,0.03); border-color: #444; border-style: dashed; }
+  .drivethru { background: rgba(217,31,31,0.2); border-color: #d91f1f; }
+  .entry { background: rgba(255,255,255,0.08); border-color: #888; }
+
+  /* Features */
+  .feature {
+    position: absolute; font-size: 9px; color: #aaa;
+    text-transform: uppercase; letter-spacing: 1px;
+  }
+  .window-strip {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 6px;
+    background: repeating-linear-gradient(90deg, #4af 0px, #4af 14px, #333 14px, #333 16px);
+    opacity: 0.5;
+  }
+  .door {
+    position: absolute; width: 16px; height: 4px; background: #c9a84c; border-radius: 2px;
+  }
+  .door-v {
+    position: absolute; width: 4px; height: 16px; background: #c9a84c; border-radius: 2px;
+  }
+
+  /* Seating circles */
+  .seat { position: absolute; width: 8px; height: 8px; border-radius: 50%; border: 1px solid #666; background: rgba(255,255,255,0.05); }
+  .table { position: absolute; width: 20px; height: 20px; border-radius: 3px; border: 1px solid #555; background: rgba(255,255,255,0.04); }
+  .table-round { border-radius: 50%; }
+  .barstool { position: absolute; width: 7px; height: 7px; border-radius: 50%; border: 1.5px solid #c9a84c; background: rgba(201,168,76,0.2); }
+
+  /* Legend */
+  .legend { max-width: 370px; margin: 20px auto 0; display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 11px; color: #aaa; }
+  .legend-swatch { width: 14px; height: 14px; border-radius: 3px; border: 2px solid; flex-shrink: 0; }
+
+  .stats { max-width: 370px; margin: 16px auto; display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
+  .stat-card { background: #1a1a1a; border: 1px solid #333; border-radius: 6px; padding: 10px; text-align: center; }
+  .stat-card .val { font-size: 20px; font-weight: 700; color: #d91f1f; }
+  .stat-card .lbl { font-size: 9px; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+
+  .notes { max-width: 370px; margin: 16px auto; font-size: 11px; color: #666; line-height: 1.6; }
+  .notes strong { color: #999; }
+
+  /* North arrow */
+  .north { position: absolute; top: 10px; right: 10px; font-size: 18px; color: #555; }
+
+  /* Scale */
+  .scale-bar { position: absolute; bottom: 14px; right: 10px; display: flex; align-items: center; gap: 4px; }
+  .scale-line { width: 100px; height: 2px; background: #666; position: relative; }
+  .scale-line::before, .scale-line::after { content: ''; position: absolute; top: -3px; width: 2px; height: 8px; background: #666; }
+  .scale-line::before { left: 0; }
+  .scale-line::after { right: 0; }
+  .scale-text { font-size: 9px; color: #666; }
+</style>
+</head>
+<body>
+
+<h1>🍕 Pizza World — New Store Layout</h1>
+<p class="subtitle">37' × 100' • 3,700 sq ft • Scale: 10px = 1 foot</p>
+
+<div class="stats">
+  <div class="stat-card"><div class="val">3,700</div><div class="lbl">Total Sq Ft</div></div>
+  <div class="stat-card"><div class="val">37'×100'</div><div class="lbl">Dimensions</div></div>
+  <div class="stat-card"><div class="val">~60</div><div class="lbl">Est. Seats</div></div>
+</div>
+
+<div class="plan-wrapper">
+<div class="plan">
+  <!-- NORTH ARROW -->
+  <div class="north">⬆ N</div>
+
+  <!-- ═══ BACK OF HOUSE (TOP) ═══ -->
+
+  <!-- Kitchen: left side, back — 20' wide × 28' deep -->
+  <div class="room kitchen" style="left:0;top:0;width:200px;height:280px;">
+    <div class="label">🔥 Kitchen</div>
+    <div class="dims">20' × 28'</div>
+    <div class="sqft">560 sq ft</div>
+  </div>
+
+  <!-- Drive-Thru bump-out -->
+  <div class="room drivethru" style="left:-30px;top:100px;width:34px;height:60px;">
+    <div class="label" style="font-size:8px;writing-mode:vertical-rl;">Drive<br>Thru</div>
+  </div>
+
+  <!-- Walk-in Cooler: back right corner — 12' × 10' -->
+  <div class="room cooler" style="right:0;top:0;width:120px;height:100px;">
+    <div class="label">❄️ Cooler</div>
+    <div class="dims">12' × 10'</div>
+    <div class="sqft">120 sq ft</div>
+  </div>
+
+  <!-- Dry Storage: next to cooler — 12' × 10' -->
+  <div class="room storage" style="right:0;top:100px;width:120px;height:100px;">
+    <div class="label">📦 Storage</div>
+    <div class="dims">12' × 10'</div>
+    <div class="sqft">120 sq ft</div>
+  </div>
+
+  <!-- Office: 8' × 8' -->
+  <div class="room office" style="right:0;top:200px;width:80px;height:80px;">
+    <div class="label">🏢 Office</div>
+    <div class="dims">8' × 8'</div>
+  </div>
+
+  <!-- Hallway between kitchen and restrooms -->
+  <div class="room hallway" style="left:200px;top:200px;width:50px;height:80px;">
+    <div class="label" style="font-size:8px;">Hall</div>
+  </div>
+
+  <!-- Restroom 1 -->
+  <div class="room restroom" style="left:200px;top:100px;width:50px;height:50px;">
+    <div class="label" style="font-size:9px;">🚻 RR</div>
+    <div class="dims">5' × 5'</div>
+  </div>
+
+  <!-- Restroom 2 -->
+  <div class="room restroom" style="left:200px;top:150px;width:50px;height:50px;">
+    <div class="label" style="font-size:9px;">🚻 RR</div>
+    <div class="dims">5' × 5'</div>
+  </div>
+
+  <!-- ═══ BANQUET ROOM ═══ -->
+  <!-- Banquet Room: right side, 18' × 22' -->
+  <div class="room banquet" style="right:0;top:280px;width:180px;height:220px;">
+    <div class="label">🎉 Banquet Room</div>
+    <div class="dims">18' × 22'</div>
+    <div class="sqft">396 sq ft</div>
+    <div style="font-size:8px;color:#888;margin-top:4px;">↕ Garage Door</div>
+  </div>
+
+  <!-- Garage Door indicator -->
+  <div style="position:absolute;left:190px;top:498px;width:180px;height:4px;background:repeating-linear-gradient(90deg,#c9a84c 0px,#c9a84c 8px,transparent 8px,transparent 12px);opacity:0.6;"></div>
+
+  <!-- ═══ MAIN DINING AREA ═══ -->
+  <!-- Dining area fills from below kitchen/banquet to front -->
+  <div class="room dining" style="left:0;top:500px;width:370px;height:494px;border-bottom:none;">
+    <div class="label" style="margin-top:20px;">🍽️ Main Dining</div>
+    <div class="dims">37' × ~50'</div>
+    <div class="sqft">~1,850 sq ft</div>
+  </div>
+
+  <!-- L-Shaped Bar -->
+  <div class="room bar" style="left:30px;top:540px;width:120px;height:180px;">
+    <div class="label">🍺 Bar</div>
+    <div class="dims">L-Shaped</div>
+  </div>
+
+  <!-- Bar stools — long side (right of bar) -->
+  <div class="barstool" style="left:155px;top:560px;"></div>
+  <div class="barstool" style="left:155px;top:580px;"></div>
+  <div class="barstool" style="left:155px;top:600px;"></div>
+  <div class="barstool" style="left:155px;top:620px;"></div>
+  <div class="barstool" style="left:155px;top:640px;"></div>
+  <div class="barstool" style="left:155px;top:660px;"></div>
+  <div class="barstool" style="left:155px;top:680px;"></div>
+  <div class="barstool" style="left:155px;top:700px;"></div>
+
+  <!-- Bar stools — short side (bottom of bar) -->
+  <div class="barstool" style="left:40px;top:724px;"></div>
+  <div class="barstool" style="left:60px;top:724px;"></div>
+  <div class="barstool" style="left:80px;top:724px;"></div>
+  <div class="barstool" style="left:100px;top:724px;"></div>
+  <div class="barstool" style="left:120px;top:724px;"></div>
+
+  <!-- Dining Tables — right side of dining room -->
+  <!-- Row 1 -->
+  <div class="table" style="left:200px;top:560px;"></div>
+  <div class="table" style="left:240px;top:560px;"></div>
+  <div class="table" style="left:280px;top:560px;"></div>
+  <div class="table" style="left:320px;top:560px;"></div>
+  <!-- Row 2 -->
+  <div class="table" style="left:200px;top:610px;"></div>
+  <div class="table" style="left:240px;top:610px;"></div>
+  <div class="table" style="left:280px;top:610px;"></div>
+  <div class="table" style="left:320px;top:610px;"></div>
+  <!-- Row 3 -->
+  <div class="table" style="left:200px;top:660px;"></div>
+  <div class="table" style="left:240px;top:660px;"></div>
+  <div class="table" style="left:280px;top:660px;"></div>
+  <div class="table" style="left:320px;top:660px;"></div>
+  <!-- Row 4 -->
+  <div class="table" style="left:200px;top:710px;"></div>
+  <div class="table" style="left:240px;top:710px;"></div>
+  <div class="table" style="left:280px;top:710px;"></div>
+  <div class="table" style="left:320px;top:710px;"></div>
+
+  <!-- Front tables by windows -->
+  <div class="table" style="left:30px;top:820px;"></div>
+  <div class="table" style="left:70px;top:820px;"></div>
+  <div class="table" style="left:110px;top:820px;"></div>
+  <div class="table" style="left:150px;top:820px;"></div>
+  <div class="table" style="left:200px;top:820px;"></div>
+  <div class="table" style="left:240px;top:820px;"></div>
+  <div class="table" style="left:280px;top:820px;"></div>
+  <div class="table" style="left:320px;top:820px;"></div>
+
+  <!-- More tables mid section -->
+  <div class="table" style="left:30px;top:770px;"></div>
+  <div class="table" style="left:70px;top:770px;"></div>
+  <div class="table" style="left:110px;top:770px;"></div>
+  <div class="table" style="left:150px;top:770px;"></div>
+  <div class="table" style="left:200px;top:770px;"></div>
+  <div class="table" style="left:240px;top:770px;"></div>
+  <div class="table" style="left:280px;top:770px;"></div>
+  <div class="table" style="left:320px;top:770px;"></div>
+
+  <!-- ENTRY -->
+  <div class="room entry" style="right:0;top:920px;width:60px;height:74px;">
+    <div class="label" style="font-size:9px;">🚪 Entry</div>
+  </div>
+
+  <!-- Wait/POS area -->
+  <div class="room" style="left:0;top:280px;width:190px;height:220px;background:rgba(201,168,76,0.05);border:2px dashed #333;">
+    <div class="label" style="font-size:10px;">POS / Pickup</div>
+    <div class="dims">Counter Area</div>
+  </div>
+
+  <!-- WINDOWS along front -->
+  <div class="window-strip"></div>
+  <div class="feature" style="bottom:8px;left:50%;transform:translateX(-50%);">─── Windows ───</div>
+
+  <!-- Back door -->
+  <div class="feature" style="top:6px;left:6px;color:#c9a84c;">◄ Back Door</div>
+
+  <!-- Scale bar -->
+  <div class="scale-bar">
+    <div class="scale-line"></div>
+    <span class="scale-text">10 ft</span>
+  </div>
+
+</div>
+</div>
+
+<!-- LEGEND -->
+<div class="legend">
+  <div class="legend-item"><div class="legend-swatch" style="background:rgba(217,31,31,0.15);border-color:#d91f1f;"></div>Kitchen</div>
+  <div class="legend-item"><div class="legend-swatch" style="background:rgba(201,168,76,0.1);border-color:#c9a84c;"></div>Dining / Bar</div>
+  <div class="legend-item"><div class="legend-swatch" style="background:rgba(100,149,237,0.12);border-color:cornflowerblue;"></div>Banquet Room</div>
+  <div class="legend-item"><div class="legend-swatch" style="background:rgba(0,191,255,0.12);border-color:deepskyblue;"></div>Walk-in Cooler</div>
+  <div class="legend-item"><div class="legend-swatch" style="background:rgba(255,165,0,0.1);border-color:orange;"></div>Dry Storage</div>
+  <div class="legend-item"><div class="legend-swatch" style="background:rgba(144,238,144,0.1);border-color:#6a6;"></div>Office</div>
+  <div class="legend-item"><div class="legend-swatch" style="background:rgba(255,255,255,0.06);border-color:#555;"></div>Restrooms</div>
+  <div class="legend-item"><div class="legend-swatch" style="background:rgba(217,31,31,0.2);border-color:#d91f1f;"></div>Drive-Thru</div>
+</div>
+
+<div class="notes">
+  <strong>Room Breakdown:</strong><br>
+  Kitchen: 560 sq ft • Cooler: 120 sq ft • Storage: 120 sq ft • Office: 64 sq ft<br>
+  Restrooms: 50 sq ft (×2) • Banquet: 396 sq ft • POS/Pickup: ~420 sq ft<br>
+  Main Dining + Bar: ~1,850 sq ft • Entry: ~45 sq ft<br><br>
+  <strong>Key Features:</strong> L-shaped bar (13 stools) • Drive-thru window • Banquet room w/ garage door partition • Front window wall • ~60 seat capacity (32 tables + 13 bar stools)
+</div>
+
+</body>
+</html>
