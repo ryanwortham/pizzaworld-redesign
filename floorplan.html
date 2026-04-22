@@ -3,42 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pizza World — New Store Blueprint (40' × 100')</title>
+<title>Pizza World — New Store Blueprint v3 (40' × 100')</title>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: #0a0a0a; color: #fff; font-family: 'Open Sans', sans-serif; padding: 20px; min-height: 100vh; }
-
   .header { text-align: center; margin-bottom: 20px; }
-  .header h1 { font-family: 'Oswald', sans-serif; font-size: 28px; letter-spacing: 3px; text-transform: uppercase; }
+  .header h1 { font-family: 'Oswald', sans-serif; font-size: 26px; letter-spacing: 3px; text-transform: uppercase; }
   .header h1 span { color: #d91f1f; }
-  .header .sub { color: #666; font-size: 13px; margin-top: 4px; }
-
-  .stats { max-width: 600px; margin: 0 auto 20px; display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; }
-  .stat { background: #141414; border: 1px solid #2a2a2a; border-radius: 8px; padding: 12px 8px; text-align: center; }
-  .stat .v { font-family: 'Oswald', sans-serif; font-size: 22px; font-weight: 700; color: #d91f1f; }
+  .header .sub { color: #666; font-size: 12px; margin-top: 4px; }
+  .stats { max-width: 560px; margin: 0 auto 20px; display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; }
+  .stat { background: #141414; border: 1px solid #2a2a2a; border-radius: 8px; padding: 10px 6px; text-align: center; }
+  .stat .v { font-family: 'Oswald', sans-serif; font-size: 20px; font-weight: 700; color: #d91f1f; }
   .stat .l { font-size: 9px; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
-
   .plan-container { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; padding: 10px; }
 
-  /* THE BLUEPRINT */
   .blueprint {
     position: relative;
-    width: 400px; /* 40ft × 10px */
-    height: 1000px; /* 100ft × 10px */
+    width: 400px;
+    height: 1000px;
     background: #111;
     border: 3px solid #444;
     box-shadow: 0 0 40px rgba(0,0,0,0.5);
   }
-
-  /* Grid overlay */
   .blueprint::before {
     content: '';
     position: absolute; inset: 0;
     background:
       repeating-linear-gradient(0deg, transparent, transparent 99px, rgba(255,255,255,0.03) 99px, rgba(255,255,255,0.03) 100px),
       repeating-linear-gradient(90deg, transparent, transparent 99px, rgba(255,255,255,0.03) 99px, rgba(255,255,255,0.03) 100px);
-    pointer-events: none;
+    pointer-events: none; z-index: 1;
   }
 
   .room {
@@ -47,71 +41,46 @@
     text-align: center; transition: all 0.25s; cursor: default; overflow: hidden;
   }
   .room:hover { z-index: 20; filter: brightness(1.3); }
-  .room .name { font-family: 'Oswald', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #fff; }
-  .room .size { font-size: 9px; color: rgba(255,255,255,0.5); margin-top: 2px; }
+  .room .name { font-family: 'Oswald', sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #fff; }
+  .room .size { font-size: 9px; color: rgba(255,255,255,0.45); margin-top: 2px; }
   .room .area { font-size: 9px; color: #c9a84c; margin-top: 1px; }
-  .room .icon { font-size: 18px; margin-bottom: 4px; }
+  .room .icon { font-size: 16px; margin-bottom: 3px; }
 
-  /* Room types */
-  .r-kitchen { background: rgba(217,31,31,0.12); border: 2px solid rgba(217,31,31,0.6); }
-  .r-dining { background: rgba(201,168,76,0.06); border: 2px solid rgba(201,168,76,0.3); }
-  .r-banquet { background: rgba(100,149,237,0.1); border: 2px solid rgba(100,149,237,0.5); }
+  .r-kitchen { background: rgba(217,31,31,0.12); border: 2px solid rgba(217,31,31,0.5); }
+  .r-dining { background: rgba(201,168,76,0.06); border: 2px solid rgba(201,168,76,0.25); }
+  .r-banquet { background: rgba(100,149,237,0.1); border: 2px solid rgba(100,149,237,0.45); }
   .r-rr { background: rgba(255,255,255,0.04); border: 2px solid rgba(255,255,255,0.15); }
-  .r-office { background: rgba(144,238,144,0.08); border: 2px solid rgba(144,238,144,0.4); }
-  .r-storage { background: rgba(255,165,0,0.08); border: 2px solid rgba(255,165,0,0.4); }
-  .r-cooler { background: rgba(0,191,255,0.1); border: 2px solid rgba(0,191,255,0.5); }
-  .r-bar { background: rgba(201,168,76,0.12); border: 3px solid rgba(201,168,76,0.6); }
-  .r-drivethru { background: rgba(217,31,31,0.15); border: 2px solid rgba(217,31,31,0.7); }
+  .r-office { background: rgba(144,238,144,0.08); border: 2px solid rgba(144,238,144,0.35); }
+  .r-storage { background: rgba(255,165,0,0.08); border: 2px solid rgba(255,165,0,0.35); }
+  .r-cooler { background: rgba(0,191,255,0.1); border: 2px solid rgba(0,191,255,0.45); }
+  .r-bar { background: rgba(201,168,76,0.12); border: 3px solid rgba(201,168,76,0.5); }
+  .r-drivethru { background: rgba(217,31,31,0.15); border: 2px solid rgba(217,31,31,0.6); }
   .r-entry { background: rgba(255,255,255,0.06); border: 2px solid rgba(255,255,255,0.2); }
-  .r-hall { background: rgba(255,255,255,0.02); border: 1px dashed rgba(255,255,255,0.1); }
-  .r-pos { background: rgba(201,168,76,0.04); border: 2px dashed rgba(201,168,76,0.25); }
+  .r-hall { background: rgba(255,255,255,0.025); border: 1px dashed rgba(255,255,255,0.12); }
+  .r-pos { background: rgba(201,168,76,0.04); border: 2px dashed rgba(201,168,76,0.2); }
 
-  /* Furniture */
-  .tbl { position: absolute; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 3px; }
-  .tbl-r { border-radius: 50%; }
+  .tbl { position: absolute; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 3px; }
   .stool { position: absolute; width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid rgba(201,168,76,0.6); background: rgba(201,168,76,0.15); }
-  .chair { position: absolute; width: 6px; height: 6px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.04); }
 
-  /* Features */
-  .windows {
-    position: absolute; bottom: 0; left: 0; right: 0; height: 6px;
-    background: repeating-linear-gradient(90deg, rgba(100,200,255,0.4) 0px, rgba(100,200,255,0.4) 18px, rgba(255,255,255,0.05) 18px, rgba(255,255,255,0.05) 22px);
-  }
-  .garage-door {
-    position: absolute; height: 5px;
-    background: repeating-linear-gradient(90deg, #c9a84c 0px, #c9a84c 10px, transparent 10px, transparent 14px);
-    opacity: 0.5;
-  }
-  .wall-label {
-    position: absolute; font-size: 8px; color: rgba(255,255,255,0.25);
-    font-family: 'Oswald', sans-serif; letter-spacing: 2px; text-transform: uppercase;
-  }
-  .dim-label {
-    position: absolute; font-size: 9px; color: rgba(255,255,255,0.2);
-    font-family: 'Oswald', sans-serif; letter-spacing: 1px;
-  }
-  .door-mark {
-    position: absolute; background: #c9a84c; border-radius: 2px; opacity: 0.7;
-  }
+  .windows { position: absolute; bottom: 0; left: 0; right: 0; height: 6px; background: repeating-linear-gradient(90deg, rgba(100,200,255,0.4) 0px, rgba(100,200,255,0.4) 18px, rgba(255,255,255,0.05) 18px, rgba(255,255,255,0.05) 22px); z-index:2; }
+  .garage-door { position: absolute; height: 5px; background: repeating-linear-gradient(90deg, #c9a84c 0px, #c9a84c 10px, transparent 10px, transparent 14px); opacity: 0.5; }
+  .wall-label { position: absolute; font-size: 8px; color: rgba(255,255,255,0.25); font-family: 'Oswald', sans-serif; letter-spacing: 2px; text-transform: uppercase; }
+  .dim-label { position: absolute; font-size: 9px; color: rgba(255,255,255,0.2); font-family: 'Oswald', sans-serif; letter-spacing: 1px; }
+  .door-mark { position: absolute; background: #c9a84c; border-radius: 2px; opacity: 0.7; }
+  .flow-arrow { position: absolute; color: rgba(201,168,76,0.3); font-size: 14px; z-index: 3; }
 
-  /* Side panel */
-  .panel { width: 280px; }
-  .panel h3 { font-family: 'Oswald', sans-serif; font-size: 16px; letter-spacing: 2px; text-transform: uppercase; color: #d91f1f; margin-bottom: 12px; }
-  .panel-section { margin-bottom: 20px; }
+  .panel { width: 260px; }
+  .panel h3 { font-family: 'Oswald', sans-serif; font-size: 15px; letter-spacing: 2px; text-transform: uppercase; color: #d91f1f; margin-bottom: 10px; }
+  .panel-section { margin-bottom: 18px; }
   .room-list { list-style: none; }
-  .room-list li {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 8px 0; border-bottom: 1px solid #1a1a1a; font-size: 12px;
-  }
+  .room-list li { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid #1a1a1a; font-size: 11px; }
   .room-list .rn { color: #ccc; }
-  .room-list .rd { color: #666; font-size: 11px; }
-  .room-list .rs { color: #c9a84c; font-size: 11px; font-weight: 600; }
-
-  .legend { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-  .leg { display: flex; align-items: center; gap: 6px; font-size: 10px; color: #888; }
+  .room-list .rd { color: #666; font-size: 10px; }
+  .room-list .rs { color: #c9a84c; font-size: 10px; font-weight: 600; }
+  .legend { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+  .leg { display: flex; align-items: center; gap: 6px; font-size: 9px; color: #888; }
   .leg-sw { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
-
-  .notes { font-size: 11px; color: #555; line-height: 1.7; }
+  .notes { font-size: 10px; color: #555; line-height: 1.7; }
   .notes strong { color: #888; }
 
   @media (max-width: 750px) {
@@ -124,270 +93,333 @@
 
 <div class="header">
   <h1>🍕 Pizza World — <span>New Store Blueprint</span></h1>
-  <div class="sub">40' × 100' • 4,000 sq ft total • Scale: 10px = 1 foot • Graph: each line = 10 feet</div>
+  <div class="sub">40' × 100' • 4,000 sq ft • Scale: 10px = 1 foot • v3 — Corrected Traffic Flow</div>
 </div>
 
 <div class="stats">
   <div class="stat"><div class="v">4,000</div><div class="l">Total Sq Ft</div></div>
   <div class="stat"><div class="v">40'×100'</div><div class="l">Dimensions</div></div>
-  <div class="stat"><div class="v">~68</div><div class="l">Seats</div></div>
-  <div class="stat"><div class="v">11</div><div class="l">Rooms</div></div>
+  <div class="stat"><div class="v">~92</div><div class="l">Total Seats</div></div>
+  <div class="stat"><div class="v">12</div><div class="l">Zones</div></div>
 </div>
 
 <div class="plan-container">
-
-<!-- ═══════════════════ BLUEPRINT ═══════════════════ -->
 <div class="blueprint">
 
   <!-- Dimension labels -->
   <div class="dim-label" style="top:-16px;left:50%;transform:translateX(-50%);">← 40' →</div>
   <div class="dim-label" style="left:-30px;top:50%;transform:rotate(-90deg) translateX(-50%);transform-origin:0 0;">← 100' →</div>
 
-  <!-- ═══ BACK OF HOUSE (TOP = BACK) ═══ -->
+  <!--
+  ══════════════════════════════════════════
+   LAYOUT (top = BACK of building)
+  
+   BACK WALL (top)
+   ┌────────────────────────┬──────┬──────┐
+   │                        │      │      │
+   │      KITCHEN           │Cooler│Strge │  
+   │      22' × 30'         │8×10  │8×10  │
+   │      660 sf            │      │      │
+   │                        ├──────┴──────┤
+   │                        │   Office    │
+   │                        │   8' × 8'   │
+   ├────────┬───────────────┴─────────────┤
+   │        │         HALLWAY             │
+   │  POS   │   5' wide customer corridor │
+   │Counter │ ┌────┐ ┌────┐              │
+   │  10×16 │ │ RR │ │ RR │              │
+   │        │ │5×7 │ │5×7 │              │
+   │        │ └────┘ └────┘              │
+   ├────────┴─────────┬───────────────────┤
+   │                  │                   │
+   │   MAIN DINING    │  BANQUET ROOM     │
+   │                  │  18' × 22'        │
+   │   ┌─────────┐   │  396 sf           │
+   │   │ L-BAR   │   │                   │
+   │   │         │   │  [garage door]     │
+   │   └─────────┘   │───────────────────│
+   │                  │                   │
+   │   tables         │                   │
+   │                  │                   │
+   │   window tables  │                   │
+   │                                      │
+   └──────────────────────────[ENTRY]──────┘
+   FRONT WALL (bottom) — WINDOWS
+  ══════════════════════════════════════════
+  -->
 
-  <!-- KITCHEN — 22' × 38' (left side, full back) -->
-  <div class="room r-kitchen" style="left:0;top:0;width:220px;height:380px;">
+  <!-- ═══ BACK OF HOUSE ═══ -->
+
+  <!-- KITCHEN — 22' × 30' -->
+  <div class="room r-kitchen" style="left:0;top:0;width:220px;height:300px;">
     <div class="icon">🔥</div>
     <div class="name">Kitchen</div>
-    <div class="size">22' × 38'</div>
-    <div class="area">836 sq ft</div>
+    <div class="size">22' × 30'</div>
+    <div class="area">660 sq ft</div>
   </div>
 
-  <!-- Drive-Thru bump-out -->
-  <div class="room r-drivethru" style="left:-26px;top:140px;width:30px;height:70px;">
+  <!-- Drive-Thru bump-out on left wall -->
+  <div class="room r-drivethru" style="left:-26px;top:120px;width:30px;height:70px;">
     <div class="name" style="font-size:7px;writing-mode:vertical-rl;letter-spacing:2px;">Drive-Thru</div>
   </div>
+  <div class="door-mark" style="left:0;top:148px;width:4px;height:18px;"></div>
 
-  <!-- Back door marker -->
+  <!-- Back door -->
   <div class="door-mark" style="left:0;top:10px;width:4px;height:20px;"></div>
   <div class="wall-label" style="left:8px;top:14px;">◄ Back Door</div>
 
-  <!-- COOLER — 8' × 12' (top right corner) -->
-  <div class="room r-cooler" style="right:0;top:0;width:80px;height:120px;">
+  <!-- COOLER — 8' × 10' (top right) -->
+  <div class="room r-cooler" style="right:100px;top:0;width:80px;height:100px;">
     <div class="icon">❄️</div>
     <div class="name">Cooler</div>
-    <div class="size">8' × 12'</div>
-    <div class="area">96 sq ft</div>
+    <div class="size">8' × 10'</div>
+    <div class="area">80 sf</div>
   </div>
 
-  <!-- STORAGE — 8' × 12' -->
-  <div class="room r-storage" style="right:0;top:120px;width:80px;height:120px;">
+  <!-- STORAGE — 8' × 10' -->
+  <div class="room r-storage" style="right:0;top:0;width:100px;height:100px;">
     <div class="icon">📦</div>
     <div class="name">Storage</div>
-    <div class="size">8' × 12'</div>
-    <div class="area">96 sq ft</div>
+    <div class="size">10' × 10'</div>
+    <div class="area">100 sf</div>
   </div>
 
   <!-- OFFICE — 8' × 8' -->
-  <div class="room r-office" style="right:0;top:240px;width:80px;height:80px;">
+  <div class="room r-office" style="right:0;top:100px;width:180px;height:80px;">
     <div class="icon">🏢</div>
     <div class="name">Office</div>
-    <div class="size">8' × 8'</div>
-    <div class="area">64 sq ft</div>
+    <div class="size">18' × 8'</div>
+    <div class="area">144 sf</div>
   </div>
 
-  <!-- RESTROOM 1 — 8' × 8' -->
-  <div class="room r-rr" style="left:220px;top:240px;width:50px;height:70px;">
-    <div class="name" style="font-size:10px;">🚺 RR</div>
-    <div class="size">5' × 7'</div>
+  <!-- ═══ CUSTOMER HALLWAY — The fix! ═══ -->
+  <!-- 5' wide hallway running along right side from dining up to restrooms -->
+  <div class="room r-hall" style="left:100px;top:300px;width:300px;height:50px;">
+    <div class="name" style="font-size:9px;color:rgba(255,255,255,0.35);letter-spacing:3px;">→ Customer Hallway to Restrooms →</div>
   </div>
 
-  <!-- RESTROOM 2 — 8' × 8' -->
-  <div class="room r-rr" style="left:270px;top:240px;width:50px;height:70px;">
-    <div class="name" style="font-size:10px;">🚹 RR</div>
-    <div class="size">5' × 7'</div>
+  <!-- POS / Counter — left side, between kitchen and dining -->
+  <div class="room r-pos" style="left:0;top:300px;width:100px;height:150px;">
+    <div class="icon" style="font-size:13px;">🧾</div>
+    <div class="name">POS</div>
+    <div class="size">10' × 15'</div>
+    <div class="area">Ordering & Pickup</div>
   </div>
 
-  <!-- HALLWAY -->
-  <div class="room r-hall" style="left:220px;top:310px;width:100px;height:70px;">
-    <div class="name" style="font-size:9px;color:#555;">Hallway</div>
+  <!-- RESTROOM 1 — accessible from hallway -->
+  <div class="room r-rr" style="left:100px;top:180px;width:60px;height:70px;">
+    <div class="icon" style="font-size:14px;">🚺</div>
+    <div class="name" style="font-size:10px;">Women</div>
+    <div class="size">6' × 7'</div>
   </div>
 
-  <!-- ═══ BANQUET ROOM — 18' × 24' ═══ -->
-  <div class="room r-banquet" style="right:0;top:320px;width:180px;height:240px;">
+  <!-- RESTROOM 2 -->
+  <div class="room r-rr" style="left:160px;top:180px;width:60px;height:70px;">
+    <div class="icon" style="font-size:14px;">🚹</div>
+    <div class="name" style="font-size:10px;">Men</div>
+    <div class="size">6' × 7'</div>
+  </div>
+
+  <!-- Hallway from dining up to restrooms (vertical connector) -->
+  <div class="room r-hall" style="left:100px;top:250px;width:120px;height:50px;">
+    <div class="name" style="font-size:8px;color:rgba(255,255,255,0.3);">↑ RR Access</div>
+  </div>
+
+  <!-- Flow arrows showing path to restrooms -->
+  <div class="flow-arrow" style="left:140px;top:360px;">↑</div>
+  <div class="flow-arrow" style="left:140px;top:330px;">↑</div>
+  <div class="flow-arrow" style="left:140px;top:290px;">↑</div>
+  <div class="flow-arrow" style="left:140px;top:260px;">↑</div>
+
+  <!-- ═══ BANQUET ROOM — right side, accessible from dining ═══ -->
+  <div class="room r-banquet" style="right:0;top:350px;width:180px;height:220px;">
     <div class="icon">🎉</div>
     <div class="name">Banquet Room</div>
-    <div class="size">18' × 24'</div>
-    <div class="area">432 sq ft</div>
-    <div style="font-size:8px;color:rgba(255,255,255,0.3);margin-top:6px;">↕ Garage Door Below</div>
+    <div class="size">18' × 22'</div>
+    <div class="area">396 sq ft</div>
+    <div style="font-size:8px;color:rgba(255,255,255,0.3);margin-top:4px;">↕ Garage Door Below</div>
   </div>
 
-  <!-- Banquet tables (3 long tables) -->
-  <div class="tbl" style="left:234px;top:370px;width:60px;height:16px;"></div>
-  <div class="tbl" style="left:234px;top:410px;width:60px;height:16px;"></div>
-  <div class="tbl" style="left:234px;top:450px;width:60px;height:16px;"></div>
-  <div class="tbl" style="left:320px;top:370px;width:60px;height:16px;"></div>
-  <div class="tbl" style="left:320px;top:410px;width:60px;height:16px;"></div>
-  <div class="tbl" style="left:320px;top:450px;width:60px;height:16px;"></div>
+  <!-- Banquet tables -->
+  <div class="tbl" style="left:234px;top:395px;width:55px;height:14px;"></div>
+  <div class="tbl" style="left:234px;top:430px;width:55px;height:14px;"></div>
+  <div class="tbl" style="left:234px;top:465px;width:55px;height:14px;"></div>
+  <div class="tbl" style="left:320px;top:395px;width:55px;height:14px;"></div>
+  <div class="tbl" style="left:320px;top:430px;width:55px;height:14px;"></div>
+  <div class="tbl" style="left:320px;top:465px;width:55px;height:14px;"></div>
 
-  <!-- Garage Door -->
-  <div class="garage-door" style="left:220px;top:558px;width:180px;"></div>
+  <!-- Garage Door between banquet and dining -->
+  <div class="garage-door" style="left:220px;top:568px;width:180px;"></div>
 
-  <!-- ═══ POS / COUNTER AREA ═══ -->
-  <div class="room r-pos" style="left:0;top:380px;width:220px;height:180px;">
-    <div class="icon" style="font-size:14px;">🧾</div>
-    <div class="name">POS / Pickup</div>
-    <div class="size">22' × 18'</div>
-    <div class="area">Counter & Order Area</div>
-  </div>
-
-  <!-- ═══ MAIN DINING ═══ -->
-  <div class="room r-dining" style="left:0;top:560px;width:400px;height:434px;border-bottom:none;">
-    <div class="name" style="margin-top:10px;font-size:16px;">🍽️ Main Dining</div>
-    <div class="size">40' × ~44'</div>
-    <div class="area">~1,744 sq ft</div>
+  <!-- ═══ MAIN DINING AREA ═══ -->
+  <div class="room r-dining" style="left:0;top:570px;width:400px;height:424px;border-bottom:none;">
+    <div class="name" style="margin-top:6px;font-size:15px;">🍽️ Main Dining</div>
+    <div class="size">40' × ~42'</div>
+    <div class="area">~1,680 sq ft</div>
   </div>
 
   <!-- L-SHAPED BAR -->
-  <!-- Vertical part: 14' tall × 4' wide -->
-  <div class="room r-bar" style="left:40px;top:590px;width:40px;height:140px;border-bottom:none;border-right:none;">
-    <div class="name" style="font-size:10px;writing-mode:vertical-rl;">Bar</div>
+  <div class="room r-bar" style="left:30px;top:590px;width:40px;height:130px;border-bottom:none;border-right:none;">
+    <div class="name" style="font-size:9px;writing-mode:vertical-rl;">Bar</div>
   </div>
-  <!-- Horizontal part: 16' wide × 4' tall -->
-  <div class="room r-bar" style="left:40px;top:730px;width:160px;height:40px;border-top:none;border-left:none;">
+  <div class="room r-bar" style="left:30px;top:720px;width:150px;height:36px;border-top:none;border-left:none;">
     <div class="name" style="font-size:10px;">🍺 Bar</div>
   </div>
 
-  <!-- Bar stools — right side of vertical bar -->
-  <div class="stool" style="left:86px;top:600px;"></div>
-  <div class="stool" style="left:86px;top:618px;"></div>
-  <div class="stool" style="left:86px;top:636px;"></div>
-  <div class="stool" style="left:86px;top:654px;"></div>
-  <div class="stool" style="left:86px;top:672px;"></div>
-  <div class="stool" style="left:86px;top:690px;"></div>
-  <div class="stool" style="left:86px;top:708px;"></div>
+  <!-- Bar stools — right side (vertical) -->
+  <div class="stool" style="left:76px;top:600px;"></div>
+  <div class="stool" style="left:76px;top:618px;"></div>
+  <div class="stool" style="left:76px;top:636px;"></div>
+  <div class="stool" style="left:76px;top:654px;"></div>
+  <div class="stool" style="left:76px;top:672px;"></div>
+  <div class="stool" style="left:76px;top:690px;"></div>
+  <div class="stool" style="left:76px;top:708px;"></div>
 
-  <!-- Bar stools — front of horizontal bar -->
-  <div class="stool" style="left:60px;top:776px;"></div>
-  <div class="stool" style="left:80px;top:776px;"></div>
-  <div class="stool" style="left:100px;top:776px;"></div>
-  <div class="stool" style="left:120px;top:776px;"></div>
-  <div class="stool" style="left:140px;top:776px;"></div>
-  <div class="stool" style="left:160px;top:776px;"></div>
+  <!-- Bar stools — front (horizontal) -->
+  <div class="stool" style="left:44px;top:762px;"></div>
+  <div class="stool" style="left:64px;top:762px;"></div>
+  <div class="stool" style="left:84px;top:762px;"></div>
+  <div class="stool" style="left:104px;top:762px;"></div>
+  <div class="stool" style="left:124px;top:762px;"></div>
+  <div class="stool" style="left:144px;top:762px;"></div>
 
-  <!-- DINING TABLES — Right section -->
-  <!-- Row 1 -->
-  <div class="tbl" style="left:230px;top:590px;width:22px;height:22px;"></div>
-  <div class="tbl" style="left:270px;top:590px;width:22px;height:22px;"></div>
-  <div class="tbl" style="left:310px;top:590px;width:22px;height:22px;"></div>
-  <div class="tbl" style="left:350px;top:590px;width:22px;height:22px;"></div>
-  <!-- Row 2 -->
-  <div class="tbl" style="left:230px;top:640px;width:22px;height:22px;"></div>
-  <div class="tbl" style="left:270px;top:640px;width:22px;height:22px;"></div>
-  <div class="tbl" style="left:310px;top:640px;width:22px;height:22px;"></div>
-  <div class="tbl" style="left:350px;top:640px;width:22px;height:22px;"></div>
-  <!-- Row 3 -->
-  <div class="tbl" style="left:230px;top:690px;width:22px;height:22px;"></div>
-  <div class="tbl" style="left:270px;top:690px;width:22px;height:22px;"></div>
-  <div class="tbl" style="left:310px;top:690px;width:22px;height:22px;"></div>
-  <div class="tbl" style="left:350px;top:690px;width:22px;height:22px;"></div>
-  <!-- Row 4 -->
-  <div class="tbl" style="left:230px;top:740px;width:22px;height:22px;"></div>
-  <div class="tbl" style="left:270px;top:740px;width:22px;height:22px;"></div>
-  <div class="tbl" style="left:310px;top:740px;width:22px;height:22px;"></div>
-  <div class="tbl" style="left:350px;top:740px;width:22px;height:22px;"></div>
+  <!-- DINING TABLES — right of bar, 4 rows of 4 -->
+  <div class="tbl" style="left:210px;top:590px;width:22px;height:22px;"></div>
+  <div class="tbl" style="left:250px;top:590px;width:22px;height:22px;"></div>
+  <div class="tbl" style="left:290px;top:590px;width:22px;height:22px;"></div>
+  <div class="tbl" style="left:340px;top:590px;width:22px;height:22px;"></div>
 
-  <!-- Front window tables -->
-  <div class="tbl" style="left:20px;top:870px;width:22px;height:22px;"></div>
-  <div class="tbl" style="left:60px;top:870px;width:22px;height:22px;"></div>
-  <div class="tbl" style="left:100px;top:870px;width:22px;height:22px;"></div>
-  <div class="tbl" style="left:140px;top:870px;width:22px;height:22px;"></div>
-  <div class="tbl" style="left:190px;top:870px;width:22px;height:22px;"></div>
-  <div class="tbl" style="left:230px;top:870px;width:22px;height:22px;"></div>
-  <div class="tbl" style="left:270px;top:870px;width:22px;height:22px;"></div>
-  <div class="tbl" style="left:310px;top:870px;width:22px;height:22px;"></div>
-  <div class="tbl" style="left:350px;top:870px;width:22px;height:22px;"></div>
+  <div class="tbl" style="left:210px;top:636px;width:22px;height:22px;"></div>
+  <div class="tbl" style="left:250px;top:636px;width:22px;height:22px;"></div>
+  <div class="tbl" style="left:290px;top:636px;width:22px;height:22px;"></div>
+  <div class="tbl" style="left:340px;top:636px;width:22px;height:22px;"></div>
 
-  <!-- Mid tables -->
-  <div class="tbl" style="left:20px;top:820px;width:22px;height:22px;"></div>
-  <div class="tbl" style="left:60px;top:820px;width:22px;height:22px;"></div>
-  <div class="tbl" style="left:100px;top:820px;width:22px;height:22px;"></div>
-  <div class="tbl" style="left:140px;top:820px;width:22px;height:22px;"></div>
-  <div class="tbl" style="left:190px;top:820px;width:22px;height:22px;"></div>
-  <div class="tbl" style="left:230px;top:820px;width:22px;height:22px;"></div>
-  <div class="tbl" style="left:270px;top:820px;width:22px;height:22px;"></div>
-  <div class="tbl" style="left:310px;top:820px;width:22px;height:22px;"></div>
-  <div class="tbl" style="left:350px;top:820px;width:22px;height:22px;"></div>
+  <div class="tbl" style="left:210px;top:682px;width:22px;height:22px;"></div>
+  <div class="tbl" style="left:250px;top:682px;width:22px;height:22px;"></div>
+  <div class="tbl" style="left:290px;top:682px;width:22px;height:22px;"></div>
+  <div class="tbl" style="left:340px;top:682px;width:22px;height:22px;"></div>
 
-  <!-- ENTRY / VESTIBULE -->
+  <div class="tbl" style="left:210px;top:728px;width:22px;height:22px;"></div>
+  <div class="tbl" style="left:250px;top:728px;width:22px;height:22px;"></div>
+  <div class="tbl" style="left:290px;top:728px;width:22px;height:22px;"></div>
+  <div class="tbl" style="left:340px;top:728px;width:22px;height:22px;"></div>
+
+  <!-- Window seat row 1 -->
+  <div class="tbl" style="left:20px;top:860px;width:22px;height:22px;"></div>
+  <div class="tbl" style="left:60px;top:860px;width:22px;height:22px;"></div>
+  <div class="tbl" style="left:100px;top:860px;width:22px;height:22px;"></div>
+  <div class="tbl" style="left:140px;top:860px;width:22px;height:22px;"></div>
+  <div class="tbl" style="left:190px;top:860px;width:22px;height:22px;"></div>
+  <div class="tbl" style="left:230px;top:860px;width:22px;height:22px;"></div>
+  <div class="tbl" style="left:270px;top:860px;width:22px;height:22px;"></div>
+  <div class="tbl" style="left:310px;top:860px;width:22px;height:22px;"></div>
+  <div class="tbl" style="left:350px;top:860px;width:22px;height:22px;"></div>
+
+  <!-- Window seat row 2 -->
+  <div class="tbl" style="left:20px;top:910px;width:22px;height:22px;"></div>
+  <div class="tbl" style="left:60px;top:910px;width:22px;height:22px;"></div>
+  <div class="tbl" style="left:100px;top:910px;width:22px;height:22px;"></div>
+  <div class="tbl" style="left:140px;top:910px;width:22px;height:22px;"></div>
+  <div class="tbl" style="left:190px;top:910px;width:22px;height:22px;"></div>
+  <div class="tbl" style="left:230px;top:910px;width:22px;height:22px;"></div>
+  <div class="tbl" style="left:270px;top:910px;width:22px;height:22px;"></div>
+
+  <!-- Mid section tables -->
+  <div class="tbl" style="left:20px;top:800px;width:22px;height:22px;"></div>
+  <div class="tbl" style="left:60px;top:800px;width:22px;height:22px;"></div>
+  <div class="tbl" style="left:100px;top:800px;width:22px;height:22px;"></div>
+  <div class="tbl" style="left:140px;top:800px;width:22px;height:22px;"></div>
+  <div class="tbl" style="left:210px;top:800px;width:22px;height:22px;"></div>
+  <div class="tbl" style="left:250px;top:800px;width:22px;height:22px;"></div>
+  <div class="tbl" style="left:290px;top:800px;width:22px;height:22px;"></div>
+  <div class="tbl" style="left:340px;top:800px;width:22px;height:22px;"></div>
+
+  <!-- ENTRY -->
   <div class="room r-entry" style="right:0;top:930px;width:70px;height:64px;">
-    <div class="name" style="font-size:10px;">🚪 Entry</div>
-    <div class="size">7' × 6'</div>
+    <div class="name" style="font-size:10px;">🚪</div>
+    <div class="size">Entry</div>
   </div>
-  <div class="door-mark" style="right:30px;bottom:0;width:20px;height:4px;"></div>
+  <div class="door-mark" style="right:22px;bottom:0;width:20px;height:4px;"></div>
 
   <!-- WINDOWS -->
   <div class="windows"></div>
-  <div class="wall-label" style="bottom:9px;left:50%;transform:translateX(-50%);">── storefront windows ──</div>
-
-  <!-- Drive-thru door -->
-  <div class="door-mark" style="left:0;top:165px;width:4px;height:18px;"></div>
+  <div class="wall-label" style="bottom:9px;left:40%;transform:translateX(-50%);z-index:3;">── storefront windows ──</div>
 
 </div>
 
-<!-- ═══════════════════ SIDE PANEL ═══════════════════ -->
+<!-- ═══ SIDE PANEL ═══ -->
 <div class="panel">
 
   <div class="panel-section">
     <h3>Room Breakdown</h3>
     <ul class="room-list">
-      <li><span class="rn">🔥 Kitchen</span><span class="rd">22' × 38'</span><span class="rs">836 sf</span></li>
-      <li><span class="rn">🍽️ Main Dining</span><span class="rd">40' × 44'</span><span class="rs">1,744 sf</span></li>
-      <li><span class="rn">🎉 Banquet Room</span><span class="rd">18' × 24'</span><span class="rs">432 sf</span></li>
-      <li><span class="rn">🍺 L-Bar</span><span class="rd">L-shaped</span><span class="rs">13 stools</span></li>
-      <li><span class="rn">🧾 POS / Pickup</span><span class="rd">22' × 18'</span><span class="rs">396 sf</span></li>
-      <li><span class="rn">❄️ Walk-in Cooler</span><span class="rd">8' × 12'</span><span class="rs">96 sf</span></li>
-      <li><span class="rn">📦 Dry Storage</span><span class="rd">8' × 12'</span><span class="rs">96 sf</span></li>
-      <li><span class="rn">🏢 Office</span><span class="rd">8' × 8'</span><span class="rs">64 sf</span></li>
-      <li><span class="rn">🚺 Women's RR</span><span class="rd">5' × 7'</span><span class="rs">35 sf</span></li>
-      <li><span class="rn">🚹 Men's RR</span><span class="rd">5' × 7'</span><span class="rs">35 sf</span></li>
-      <li><span class="rn">🚪 Entry Vestibule</span><span class="rd">7' × 6'</span><span class="rs">42 sf</span></li>
+      <li><span class="rn">🔥 Kitchen</span><span class="rd">22' × 30'</span><span class="rs">660 sf</span></li>
+      <li><span class="rn">🍽️ Main Dining</span><span class="rd">40' × 42'</span><span class="rs">1,680 sf</span></li>
+      <li><span class="rn">🎉 Banquet Room</span><span class="rd">18' × 22'</span><span class="rs">396 sf</span></li>
+      <li><span class="rn">🍺 L-Shaped Bar</span><span class="rd">L-config</span><span class="rs">13 stools</span></li>
+      <li><span class="rn">🧾 POS / Pickup</span><span class="rd">10' × 15'</span><span class="rs">150 sf</span></li>
+      <li><span class="rn">❄️ Walk-in Cooler</span><span class="rd">8' × 10'</span><span class="rs">80 sf</span></li>
+      <li><span class="rn">📦 Dry Storage</span><span class="rd">10' × 10'</span><span class="rs">100 sf</span></li>
+      <li><span class="rn">🏢 Office</span><span class="rd">18' × 8'</span><span class="rs">144 sf</span></li>
+      <li><span class="rn">🚺 Women's RR</span><span class="rd">6' × 7'</span><span class="rs">42 sf</span></li>
+      <li><span class="rn">🚹 Men's RR</span><span class="rd">6' × 7'</span><span class="rs">42 sf</span></li>
+      <li><span class="rn">↔️ Customer Hall</span><span class="rd">5' wide</span><span class="rs">Path to RR</span></li>
+      <li><span class="rn">🚪 Entry</span><span class="rd">7' × 6'</span><span class="rs">42 sf</span></li>
     </ul>
   </div>
 
   <div class="panel-section">
-    <h3>Seating Capacity</h3>
+    <h3>Seating</h3>
     <ul class="room-list">
-      <li><span class="rn">Dining Tables (right)</span><span class="rs">16 tables → 64 seats</span></li>
-      <li><span class="rn">Window Tables</span><span class="rs">18 seats</span></li>
-      <li><span class="rn">Bar Stools</span><span class="rs">13 stools</span></li>
-      <li><span class="rn">Banquet Room</span><span class="rs">24 seats</span></li>
-      <li style="border-top:2px solid #333;padding-top:10px;"><span class="rn" style="color:#c9a84c;font-weight:700;">Total Capacity</span><span class="rs" style="font-size:14px;">~68 + 24 banquet</span></li>
+      <li><span class="rn">Dining Tables</span><span class="rs">41 tables → ~82</span></li>
+      <li><span class="rn">Bar Stools</span><span class="rs">13</span></li>
+      <li><span class="rn">Banquet Room</span><span class="rs">~24</span></li>
+      <li style="border-top:2px solid #333;padding-top:8px;"><span class="rn" style="color:#c9a84c;font-weight:700;">Total</span><span class="rs" style="font-size:13px;">~95 + 24 banquet</span></li>
     </ul>
+  </div>
+
+  <div class="panel-section">
+    <h3>Traffic Flow (Fixed ✅)</h3>
+    <div class="notes">
+      <strong>🚻 Restroom Access:</strong> Customers walk from dining through a 5' wide hallway (right of POS counter) that leads directly to both restrooms. No need to pass through kitchen or back-of-house.<br><br>
+      <strong>🚪 Customer Path:</strong><br>
+      Entry → Dining → Hallway → Restrooms<br>
+      Entry → POS Counter → Pickup<br>
+      Banquet ↔ Dining (garage door)<br><br>
+      <strong>🔥 Kitchen Path (staff only):</strong><br>
+      Back Door → Kitchen → Expo/POS<br>
+      Kitchen → Cooler/Storage<br>
+      Kitchen → Drive-Thru Window
+    </div>
   </div>
 
   <div class="panel-section">
     <h3>Legend</h3>
     <div class="legend">
-      <div class="leg"><div class="leg-sw" style="background:rgba(217,31,31,0.2);border:2px solid rgba(217,31,31,0.6);"></div>Kitchen / BOH</div>
-      <div class="leg"><div class="leg-sw" style="background:rgba(201,168,76,0.1);border:2px solid rgba(201,168,76,0.4);"></div>Dining / Bar</div>
-      <div class="leg"><div class="leg-sw" style="background:rgba(100,149,237,0.15);border:2px solid rgba(100,149,237,0.5);"></div>Banquet</div>
-      <div class="leg"><div class="leg-sw" style="background:rgba(0,191,255,0.15);border:2px solid rgba(0,191,255,0.5);"></div>Cooler</div>
-      <div class="leg"><div class="leg-sw" style="background:rgba(255,165,0,0.12);border:2px solid rgba(255,165,0,0.4);"></div>Storage</div>
-      <div class="leg"><div class="leg-sw" style="background:rgba(144,238,144,0.12);border:2px solid rgba(144,238,144,0.4);"></div>Office</div>
-      <div class="leg"><div class="leg-sw" style="background:rgba(255,255,255,0.06);border:2px solid rgba(255,255,255,0.15);"></div>Restrooms</div>
-      <div class="leg"><div class="leg-sw" style="background:rgba(217,31,31,0.2);border:2px solid rgba(217,31,31,0.7);"></div>Drive-Thru</div>
-      <div class="leg"><div class="leg-sw" style="background:rgba(201,168,76,0.15);border:2px solid rgba(201,168,76,0.5);width:12px;height:12px;border-radius:50%;"></div>Bar Stool</div>
-      <div class="leg"><div class="leg-sw" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);"></div>Table</div>
-      <div class="leg"><div class="leg-sw" style="background:repeating-linear-gradient(90deg,#c9a84c 0px,#c9a84c 3px,transparent 3px,transparent 5px);border:none;height:4px;margin-top:4px;"></div>Garage Door</div>
-      <div class="leg"><div class="leg-sw" style="background:repeating-linear-gradient(90deg,rgba(100,200,255,0.4) 0px,rgba(100,200,255,0.4) 5px,transparent 5px,transparent 7px);border:none;height:4px;margin-top:4px;"></div>Windows</div>
+      <div class="leg"><div class="leg-sw" style="background:rgba(217,31,31,0.2);border:2px solid rgba(217,31,31,0.5);"></div>Kitchen</div>
+      <div class="leg"><div class="leg-sw" style="background:rgba(201,168,76,0.1);border:2px solid rgba(201,168,76,0.3);"></div>Dining / Bar</div>
+      <div class="leg"><div class="leg-sw" style="background:rgba(100,149,237,0.12);border:2px solid rgba(100,149,237,0.45);"></div>Banquet</div>
+      <div class="leg"><div class="leg-sw" style="background:rgba(0,191,255,0.12);border:2px solid rgba(0,191,255,0.45);"></div>Cooler</div>
+      <div class="leg"><div class="leg-sw" style="background:rgba(255,165,0,0.1);border:2px solid rgba(255,165,0,0.35);"></div>Storage</div>
+      <div class="leg"><div class="leg-sw" style="background:rgba(144,238,144,0.1);border:2px solid rgba(144,238,144,0.35);"></div>Office</div>
+      <div class="leg"><div class="leg-sw" style="background:rgba(255,255,255,0.04);border:2px solid rgba(255,255,255,0.15);"></div>Restrooms</div>
+      <div class="leg"><div class="leg-sw" style="background:rgba(217,31,31,0.15);border:2px solid rgba(217,31,31,0.6);"></div>Drive-Thru</div>
     </div>
   </div>
 
   <div class="panel-section">
     <h3>Key Features</h3>
     <div class="notes">
-      <strong>Drive-Thru:</strong> Left wall, accessible from kitchen<br>
-      <strong>Banquet Room:</strong> 432 sq ft, separated by roll-up garage door — opens to dining for extra capacity<br>
-      <strong>L-Shaped Bar:</strong> 13 stools, center of dining, great sightlines<br>
-      <strong>Front Windows:</strong> Full storefront glass for street visibility<br>
-      <strong>Kitchen Flow:</strong> Back door → Kitchen → Expo → POS → Dining<br>
-      <strong>ADA:</strong> Both restrooms accessible, 44"+ aisles throughout
+      <strong>✅ Customer hallway</strong> connects dining to restrooms without crossing BOH<br>
+      <strong>🚗 Drive-thru</strong> on left wall, served from kitchen<br>
+      <strong>🎉 Garage door</strong> opens banquet to dining for overflow<br>
+      <strong>🍺 L-Bar</strong> 13 stools, center-left of dining<br>
+      <strong>🪟 Full window wall</strong> across front for street presence<br>
+      <strong>♿ ADA</strong> 5' hallway exceeds 44" min, restrooms accessible
     </div>
   </div>
 
 </div>
-
 </div>
 
 </body>
