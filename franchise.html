@@ -10,17 +10,19 @@
 :root{--red:#c41e2a;--red2:#e63946;--dark:#0a0a0a;--dark2:#121212;--dark3:#1a1a1a;--gold:#c9a84c;--white:#fff;--gray:#94a3b8}
 html{scroll-behavior:smooth}
 body{font-family:'Open Sans',sans-serif;background:var(--dark);color:var(--white);overflow-x:hidden}
+img{max-width:100%}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,10,0.97);backdrop-filter:blur(12px);border-bottom:2px solid var(--red);display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:70px}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,10,0.97);backdrop-filter:blur(12px);border-bottom:2px solid var(--red);display:flex;align-items:center;justify-content:space-between;padding:0 clamp(16px,3vw,40px);height:70px}
 nav img{height:50px;filter:brightness(0) invert(1)}
 .nav-links{display:flex;gap:4px;list-style:none;align-items:center}
-.nav-links a{display:block;padding:10px 14px;color:var(--white);text-decoration:none;font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;border-radius:4px;transition:all .2s}
+.nav-links a{display:block;padding:10px clamp(8px,1vw,14px);color:var(--white);text-decoration:none;font-family:'Oswald',sans-serif;font-size:clamp(11px,.85vw,12px);letter-spacing:1.5px;text-transform:uppercase;border-radius:4px;transition:all .2s;white-space:nowrap}
 .nav-links a:hover{color:var(--red2);background:rgba(255,255,255,.04)}
 .nav-cta{background:var(--red)!important;color:#fff!important;padding:12px 22px!important;font-weight:600;box-shadow:0 4px 16px rgba(196,30,42,.3)}
+.nav-toggle{display:none;background:transparent;border:1px solid rgba(255,255,255,.2);color:#fff;border-radius:6px;padding:9px 11px;font-size:22px;line-height:1;cursor:pointer}
 
 /* HERO */
-.hero{min-height:100vh;display:flex;align-items:center;position:relative;padding:100px 60px 80px}
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;padding:100px clamp(20px,5vw,60px) 80px}
 .hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,rgba(10,10,10,.88),rgba(10,10,10,.7)),url('img/hero-pizza.jpg') center/cover}
 .hero-content{position:relative;z-index:2;max-width:680px}
 .hero-eyebrow{font-family:'Oswald',sans-serif;font-size:14px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
@@ -49,7 +51,7 @@ nav img{height:50px;filter:brightness(0) invert(1)}
 .section-desc{color:var(--gray);font-size:15px;max-width:560px;line-height:1.8}
 
 /* WHY PIZZA WORLD */
-.why{padding:90px 40px;max-width:1200px;margin:0 auto}
+.why{padding:clamp(60px,7vw,90px) clamp(20px,4vw,40px);max-width:1200px;margin:0 auto}
 .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;margin-top:50px}
 .why-img{border-radius:10px;overflow:hidden;border:2px solid var(--red)}
 .why-img img{width:100%;display:block}
@@ -61,7 +63,7 @@ nav img{height:50px;filter:brightness(0) invert(1)}
 .food-strip{padding:80px 0;background:var(--dark2);text-align:center;overflow:hidden}
 .food-strip h2{font-family:'Oswald',sans-serif;font-size:36px;text-transform:uppercase;margin-bottom:10px}
 .food-strip p{color:var(--gray);font-size:15px;margin-bottom:40px}
-.food-scroll{display:flex;gap:16px;padding:0 40px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.food-scroll{display:flex;gap:16px;padding:0 clamp(20px,4vw,40px);overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;max-width:100vw}
 .food-scroll::after{content:'';flex:0 0 40px}
 .food-scroll::-webkit-scrollbar{display:none}
 .food-card{flex:0 0 260px;scroll-snap-align:start;border-radius:10px;overflow:hidden;border:1px solid #222;transition:transform .25s}
@@ -71,7 +73,7 @@ nav img{height:50px;filter:brightness(0) invert(1)}
 .food-card-body h4{font-family:'Oswald',sans-serif;font-size:16px;text-transform:uppercase;letter-spacing:1px}
 
 /* INVESTMENT */
-.investment{padding:90px 40px;text-align:center}
+.investment{padding:clamp(60px,7vw,90px) clamp(20px,4vw,40px);text-align:center}
 .invest-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1000px;margin:40px auto 0}
 .invest-card{background:var(--dark2);border:1px solid #222;border-radius:10px;padding:36px 24px;transition:border-color .25s}
 .invest-card:hover{border-color:var(--red)}
@@ -79,25 +81,25 @@ nav img{height:50px;filter:brightness(0) invert(1)}
 .invest-card .lbl{font-size:13px;color:var(--gray);margin-top:8px;line-height:1.5}
 
 /* MARKETING */
-.marketing{padding:90px 40px;background:var(--dark2)}
+.marketing{padding:clamp(60px,7vw,90px) clamp(20px,4vw,40px);background:var(--dark2)}
 .marketing-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;max-width:1200px;margin:0 auto;align-items:center}
 .marketing-img{border-radius:10px;overflow:hidden;border:1px solid #333;box-shadow:0 20px 60px rgba(0,0,0,.4)}
 .marketing-img img{width:100%;display:block}
 
 /* TESTIMONIALS */
-.testimonials{padding:90px 40px}
+.testimonials{padding:clamp(60px,7vw,90px) clamp(20px,4vw,40px)}
 .test-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px;max-width:1100px;margin:40px auto 0}
 .test-card{background:var(--dark2);border:1px solid #222;border-radius:10px;padding:30px;border-top:3px solid var(--red)}
 .test-quote{font-size:15px;color:rgba(255,255,255,.8);line-height:1.7;font-style:italic;margin-bottom:16px}
 .test-author{font-family:'Oswald',sans-serif;font-size:14px;letter-spacing:1px;text-transform:uppercase;color:var(--gold)}
 
 /* LOCATIONS MAP */
-.locations{padding:80px 40px;background:var(--dark2);text-align:center}
+.locations{padding:clamp(60px,7vw,80px) clamp(20px,4vw,40px);background:var(--dark2);text-align:center}
 .loc-badges{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:30px}
 .loc-badge{background:var(--dark);border:1px solid #222;border-radius:50px;padding:10px 24px;font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:1px;text-transform:uppercase;color:#ccc}
 
 /* CTA */
-.cta{background:linear-gradient(135deg,rgba(196,30,42,.9),rgba(10,10,10,.95)),url('https://mypizzaworld.net/wp-content/uploads/2023/10/DSC02189-54.jpg') center/cover;padding:90px 40px;text-align:center}
+.cta{background:linear-gradient(135deg,rgba(196,30,42,.9),rgba(10,10,10,.95)),url('https://mypizzaworld.net/wp-content/uploads/2023/10/DSC02189-54.jpg') center/cover;padding:clamp(60px,7vw,90px) clamp(20px,4vw,40px);text-align:center}
 .cta h2{font-family:'Oswald',sans-serif;font-size:48px;text-transform:uppercase;margin-bottom:16px}
 .cta h2 span{color:var(--gold)}
 .cta p{color:rgba(255,255,255,.75);max-width:520px;margin:0 auto 30px;font-size:16px;line-height:1.7}
@@ -127,9 +129,24 @@ footer a:hover{color:var(--red2)}
 .form-note{font-size:11px;color:rgba(255,255,255,.3);margin-top:14px;text-align:center}
 
 @media(max-width:768px){
-  nav{padding:0 16px}.hero{padding:80px 20px}.why-grid,.marketing-grid{grid-template-columns:1fr}
-  .numbers-grid{grid-template-columns:1fr 1fr}.invest-grid{grid-template-columns:1fr}
+  nav{padding:0 16px}.hero{padding:94px 20px 58px;min-height:92svh}.why-grid,.marketing-grid{grid-template-columns:1fr;gap:34px}
+  .numbers-grid{grid-template-columns:1fr 1fr}.invest-grid{grid-template-columns:1fr}.test-grid{grid-template-columns:1fr}
   .footer-grid{grid-template-columns:1fr 1fr;gap:20px}
+  .form-row{grid-template-columns:1fr}
+  .btn{width:100%;justify-content:center;text-align:center}
+}
+@media(max-width:980px){
+  .nav-toggle{display:block}
+  .nav-links{position:absolute;top:70px;left:0;right:0;display:none;flex-direction:column;align-items:stretch;gap:0;background:rgba(10,10,10,.98);border-bottom:2px solid var(--red);padding:10px 18px 18px;box-shadow:0 18px 40px rgba(0,0,0,.4)}
+  .nav-links.open{display:flex}
+  .nav-links a{padding:13px 10px;font-size:13px;letter-spacing:1.4px;white-space:normal}
+  .nav-cta{display:block;text-align:center;margin-top:8px;padding:14px!important}
+}
+@media(max-width:560px){
+  .hero h1{font-size:40px}.hero p{font-size:16px}.hero-buttons{width:100%}
+  .numbers-grid{grid-template-columns:1fr}.num-card{border-right:none;border-bottom:1px solid rgba(255,255,255,.12);padding:28px 20px}.num-card:last-child{border-bottom:none}
+  .food-card{flex-basis:min(260px,78vw)}.invest-card .val{font-size:31px}.cta h2{font-size:38px}.cta-phone{font-size:26px}
+  .footer-grid{grid-template-columns:1fr}.footer-bottom{text-align:center}
 }
 </style>
 </head>
@@ -138,6 +155,7 @@ footer a:hover{color:var(--red2)}
 <!-- NAV -->
 <nav>
   <a href="#"><img src="https://mypizzaworld.net/wp-content/uploads/2024/02/PW-NEW-logo-1996-R-1.png" alt="Pizza World"></a>
+  <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">☰</button>
   <ul class="nav-links">
     <li><a href="#">Home</a></li>
     <li><a href="#why">Why Pizza World</a></li>
@@ -436,6 +454,20 @@ footer a:hover{color:var(--red2)}
 </footer>
 
 <script>
+var navToggle = document.querySelector('.nav-toggle');
+var navLinks = document.querySelector('.nav-links');
+if (navToggle && navLinks) {
+  navToggle.addEventListener('click', function(){
+    var open = navLinks.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  navLinks.querySelectorAll('a').forEach(function(link){
+    link.addEventListener('click', function(){
+      navLinks.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+}
 function submitForm(e) {
   e.preventDefault();
   var f = e.target;
