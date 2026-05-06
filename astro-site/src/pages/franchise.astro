@@ -143,6 +143,26 @@ footer a:hover{color:var(--red2)}
 .form-group textarea{resize:vertical;min-height:100px}
 .form-note{font-size:11px;color:rgba(255,255,255,.3);margin-top:14px;text-align:center}
 
+/* FRANCHISE Q&A ASSISTANT */
+.assistant-section{padding:clamp(60px,7vw,90px) clamp(20px,4vw,40px);background:linear-gradient(180deg,var(--dark),var(--dark2));border-top:1px solid #1f1f1f;border-bottom:1px solid #1f1f1f}
+.assistant-wrap{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:.85fr 1.15fr;gap:34px;align-items:start}
+.assistant-copy{position:sticky;top:96px}
+.assistant-copy .mini-list{list-style:none;margin-top:24px;display:grid;gap:10px}
+.assistant-copy .mini-list li{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:13px 14px;color:rgba(255,255,255,.78);font-size:14px;line-height:1.5}
+.assistant-card{background:#0f0f10;border:1px solid rgba(255,255,255,.12);border-radius:18px;overflow:hidden;box-shadow:0 25px 80px rgba(0,0,0,.45)}
+.assistant-header{display:flex;justify-content:space-between;gap:18px;align-items:center;padding:20px 22px;background:linear-gradient(135deg,#171717,#241013);border-bottom:1px solid rgba(255,255,255,.08)}
+.assistant-title{font-family:'Oswald',sans-serif;font-size:21px;text-transform:uppercase;letter-spacing:1px}.assistant-title span{color:var(--gold)}
+.assistant-status{font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:#9be7b1;display:flex;align-items:center;gap:8px;white-space:nowrap}.assistant-status::before{content:'';width:9px;height:9px;border-radius:50%;background:#22c55e;box-shadow:0 0 14px #22c55e}
+.chat-window{height:430px;overflow-y:auto;padding:22px;background:radial-gradient(circle at top left,rgba(196,30,42,.12),transparent 35%),#0b0b0c;scroll-behavior:smooth}
+.chat-message{display:flex;margin-bottom:14px}.chat-message.user{justify-content:flex-end}.bubble{max-width:82%;padding:13px 15px;border-radius:14px;font-size:14px;line-height:1.55;color:rgba(255,255,255,.86)}
+.bot .bubble{background:#191a1d;border:1px solid rgba(255,255,255,.08);border-top-left-radius:4px}.user .bubble{background:var(--red);color:#fff;border-top-right-radius:4px}
+.quick-prompts{display:flex;flex-wrap:wrap;gap:8px;padding:0 22px 16px;background:#0b0b0c}.quick-prompts button{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#fff;border-radius:999px;padding:9px 12px;font-size:12px;cursor:pointer;transition:all .2s}.quick-prompts button:hover{background:var(--red);border-color:var(--red)}
+.assistant-input{display:grid;grid-template-columns:1fr auto;gap:10px;padding:16px;background:#151517;border-top:1px solid rgba(255,255,255,.08)}
+.assistant-input input{background:#09090a;border:1px solid rgba(255,255,255,.12);border-radius:10px;color:#fff;padding:13px 14px;font-size:14px}.assistant-input input:focus{outline:none;border-color:var(--gold)}
+.assistant-input button,.lead-capture button{border:none;background:var(--red);color:#fff;border-radius:10px;padding:0 18px;font-family:'Oswald',sans-serif;letter-spacing:1.4px;text-transform:uppercase;cursor:pointer}.assistant-input button:hover,.lead-capture button:hover{background:var(--red2)}
+.lead-capture{display:none;padding:18px 22px 22px;background:#111113;border-top:1px solid rgba(255,255,255,.08)}.lead-capture.open{display:block}.lead-capture h3{font-family:'Oswald',sans-serif;text-transform:uppercase;font-size:18px;margin-bottom:10px;color:var(--gold)}.lead-capture p{font-size:13px;color:var(--gray);line-height:1.6;margin-bottom:12px}.lead-capture-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.lead-capture input,.lead-capture select{background:#080809;border:1px solid rgba(255,255,255,.12);border-radius:8px;color:#fff;padding:11px 12px;font-size:13px}.lead-capture input:focus,.lead-capture select:focus{outline:none;border-color:var(--gold)}.lead-capture .full{grid-column:1/-1}.assistant-disclaimer{font-size:11px;color:#64748b;line-height:1.55;padding:12px 22px 18px;background:#111113}
+.floating-assistant{position:fixed;right:20px;bottom:20px;z-index:90;background:var(--red);color:#fff;border:0;border-radius:999px;padding:14px 18px;font-family:'Oswald',sans-serif;letter-spacing:1.3px;text-transform:uppercase;box-shadow:0 14px 34px rgba(0,0,0,.35);cursor:pointer}.floating-assistant:hover{background:var(--red2);transform:translateY(-1px)}
+
 @media(max-width:768px){
   nav{padding:0 16px}.hero{padding:94px 20px 58px;min-height:92svh}.why-grid,.marketing-grid{grid-template-columns:1fr;gap:34px}
   .numbers-grid{grid-template-columns:1fr 1fr}.invest-grid{grid-template-columns:1fr}.test-grid{grid-template-columns:1fr}
@@ -150,6 +170,7 @@ footer a:hover{color:var(--red2)}
   .form-row{grid-template-columns:1fr}
   .btn{width:100%;justify-content:center;text-align:center}
   .location-head{display:block}.location-note{margin-top:14px}.location-card{flex-basis:235px}
+  .assistant-wrap{grid-template-columns:1fr}.assistant-copy{position:static}.chat-window{height:390px}.lead-capture-grid{grid-template-columns:1fr}.floating-assistant{left:14px;right:14px;bottom:14px;width:auto}
 }
 @media(max-width:980px){
   .nav-toggle{display:block}
@@ -468,6 +489,60 @@ footer a:hover{color:var(--red2)}
   </div>
 </section>
 
+<!-- FRANCHISE Q&A ASSISTANT -->
+<section class="assistant-section" id="franchise-assistant">
+  <div class="assistant-wrap">
+    <div class="assistant-copy">
+      <span class="section-label">Franchise Guide</span>
+      <h2 class="section-title">Ask Before You <span>Apply</span></h2>
+      <p class="section-desc">Most franchise prospects have questions before they are ready to talk. This guided assistant gives quick answers, explains the process, and helps serious candidates send a cleaner inquiry to our franchise team.</p>
+      <ul class="mini-list">
+        <li><strong style="color:var(--gold);">Answers common questions</strong><br>Investment, royalties, training, support, timing, and territories.</li>
+        <li><strong style="color:var(--gold);">Protects the brand</strong><br>Uses approved general answers and reminds prospects that official documents control final terms.</li>
+        <li><strong style="color:var(--gold);">Qualifies better leads</strong><br>Captures market, timeline, capital range, and experience before the first call.</li>
+      </ul>
+    </div>
+    <div class="assistant-card" aria-label="Pizza World Franchise Q&A Assistant">
+      <div class="assistant-header">
+        <div>
+          <div class="assistant-title">Pizza World <span>Franchise Guide</span></div>
+          <p style="font-size:12px;color:var(--gray);margin-top:3px;">Ask a question or pick a starter below.</p>
+        </div>
+        <div class="assistant-status">Online</div>
+      </div>
+      <div class="chat-window" id="chatWindow">
+        <div class="chat-message bot"><div class="bubble">Welcome! I can answer general Pizza World franchise questions about investment, royalties, training, support, timelines, territories, and next steps. What would you like to know?</div></div>
+      </div>
+      <div class="quick-prompts" id="quickPrompts">
+        <button type="button" data-question="What does it cost to open a Pizza World?">What does it cost?</button>
+        <button type="button" data-question="What are the royalties and marketing fees?">Royalties & fees</button>
+        <button type="button" data-question="What training and support do you provide?">Training & support</button>
+        <button type="button" data-question="How long does it take to open?">Opening timeline</button>
+        <button type="button" data-question="Do I need restaurant experience?">Experience needed?</button>
+        <button type="button" data-question="I want to request franchise information.">Request info</button>
+      </div>
+      <form class="assistant-input" id="assistantForm">
+        <input id="assistantInput" type="text" placeholder="Ask about the franchise opportunity..." autocomplete="off">
+        <button type="submit">Ask</button>
+      </form>
+      <div class="lead-capture" id="leadCapture">
+        <h3>Send My Franchise Info</h3>
+        <p>Share a few details and our franchise team can follow up with the right information for your market.</p>
+        <div class="lead-capture-grid">
+          <input id="leadName" placeholder="Name">
+          <input id="leadPhone" placeholder="Phone">
+          <input id="leadEmail" class="full" placeholder="Email">
+          <input id="leadMarket" placeholder="City / State of interest">
+          <select id="leadCapital"><option value="">Available capital</option><option>Under $100K</option><option>$100K – $200K</option><option>$200K – $300K</option><option>$300K+</option></select>
+          <button class="full" type="button" id="leadSubmit">Prepare Inquiry</button>
+        </div>
+      </div>
+      <div class="assistant-disclaimer">General information only. Franchise terms, fees, territories, and requirements may vary and are controlled by the official Franchise Disclosure Document and franchise agreement.</div>
+    </div>
+  </div>
+</section>
+<button class="floating-assistant" type="button" id="floatingAssistant">Ask Franchise Questions</button>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-grid">
@@ -528,6 +603,82 @@ function submitForm(e) {
   data.forEach(function(v,k){ info += k + ': ' + v + '\n'; });
   f.style.display = 'none';
   document.getElementById('formSuccess').style.display = 'block';
+}
+
+var franchiseAnswers = [
+  {keys:['cost','investment','startup','open'],answer:'A standard Pizza World store is currently presented around $138K–$286K estimated startup cost. The C-Store concept is shown around $92K–$232K. The initial franchise fee is listed as $19,500. Final costs depend on site, size, buildout, equipment, market, and the official franchise documents.'},
+  {keys:['royalty','royalties','marketing fee','fees','fee'],answer:'Pizza World promotes a 2.75% royalty on net sales and no required marketing fund contribution. Franchisees still need to invest in local marketing for their own market. Official documents control final fee obligations.'},
+  {keys:['training','support','help','operations'],answer:'Training includes a virtual training program before store training, about two weeks of hands-on training at a designated Pizza World location, opening support, operational guidance, approved specs, marketing resources, and ongoing access to training materials for new employees.'},
+  {keys:['long','timeline','time','construction','open'],answer:'Construction is typically presented around 90–120 days depending on location, store format, permits, buildout, equipment, and readiness. Site selection, lease timing, financing, and construction approvals can affect the timeline.'},
+  {keys:['experience','restaurant','ownership','background'],answer:'Restaurant experience can help, but the opportunity is designed around training, systems, and support. The stronger questions are whether the candidate has the right capital, work ethic, leadership ability, and willingness to follow the Pizza World system.'},
+  {keys:['territory','market','available','city','state','area'],answer:'Territories are available in select markets. Availability depends on the target area, current development plans, and Pizza World approval. A franchise representative would confirm whether a specific city or territory is open.'},
+  {keys:['equipment','supplier','suppliers','buildout'],answer:'Pizza World provides buildout guidance, equipment specifications, approved supplier direction, and system standards. Franchisees may be required to use designated or approved suppliers so stores stay consistent with brand standards.'},
+  {keys:['financing','sba','loan','bank'],answer:'Pizza World is presented as SBA approved, so qualified candidates may be able to pursue SBA financing through participating lenders. Financing depends on the applicant, lender, credit, capital, and full project scope.'},
+  {keys:['request','info','apply','contact','call','representative','next step'],answer:'Great — the next step is to share your name, contact info, market of interest, timeline, available capital range, and any restaurant/business experience. I can help prepare that inquiry now.'}
+];
+function addChatMessage(text, who){
+  var chat = document.getElementById('chatWindow');
+  if(!chat) return;
+  var msg = document.createElement('div');
+  msg.className = 'chat-message ' + (who || 'bot');
+  var bubble = document.createElement('div');
+  bubble.className = 'bubble';
+  bubble.textContent = text;
+  msg.appendChild(bubble);
+  chat.appendChild(msg);
+  chat.scrollTop = chat.scrollHeight;
+}
+function getAssistantAnswer(question){
+  var q = String(question || '').toLowerCase();
+  for(var i=0;i<franchiseAnswers.length;i++){
+    if(franchiseAnswers[i].keys.some(function(k){ return q.indexOf(k) !== -1; })) return franchiseAnswers[i].answer;
+  }
+  return 'Good question. I can help with general franchise topics like investment, royalties, training, support, opening timeline, territories, financing, equipment, and next steps. For exact legal or territory details, a Pizza World franchise representative should confirm from the official documents.';
+}
+function askAssistant(question){
+  if(!question || !question.trim()) return;
+  addChatMessage(question.trim(), 'user');
+  window.setTimeout(function(){
+    var answer = getAssistantAnswer(question);
+    addChatMessage(answer, 'bot');
+    if(/request|info|apply|contact|call|representative|next step/i.test(question)){
+      var lead = document.getElementById('leadCapture');
+      if(lead) lead.classList.add('open');
+    }
+  }, 250);
+}
+var assistantForm = document.getElementById('assistantForm');
+var assistantInput = document.getElementById('assistantInput');
+if(assistantForm && assistantInput){
+  assistantForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    var q = assistantInput.value;
+    assistantInput.value = '';
+    askAssistant(q);
+  });
+}
+document.querySelectorAll('#quickPrompts button').forEach(function(btn){
+  btn.addEventListener('click', function(){ askAssistant(btn.getAttribute('data-question')); });
+});
+var floatingAssistant = document.getElementById('floatingAssistant');
+if(floatingAssistant){
+  floatingAssistant.addEventListener('click', function(){
+    document.getElementById('franchise-assistant').scrollIntoView({behavior:'smooth',block:'start'});
+    window.setTimeout(function(){ if(assistantInput) assistantInput.focus(); }, 550);
+  });
+}
+var leadSubmit = document.getElementById('leadSubmit');
+if(leadSubmit){
+  leadSubmit.addEventListener('click', function(){
+    var summary = 'Franchise inquiry prepared: ' +
+      (document.getElementById('leadName').value || 'Name not provided') + ' | ' +
+      (document.getElementById('leadPhone').value || 'Phone not provided') + ' | ' +
+      (document.getElementById('leadEmail').value || 'Email not provided') + ' | Market: ' +
+      (document.getElementById('leadMarket').value || 'Not provided') + ' | Capital: ' +
+      (document.getElementById('leadCapital').value || 'Not provided') + '. Please submit the main form below or call (417) 730-1177.';
+    addChatMessage(summary, 'bot');
+    document.getElementById('contact').scrollIntoView({behavior:'smooth',block:'start'});
+  });
 }
 </script>
 </body>
