@@ -44,21 +44,6 @@ nav img{height:50px;filter:brightness(0) invert(1)}
 .num-card .val{font-family:'Oswald',sans-serif;font-size:42px;font-weight:700}
 .num-card .lbl{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.75);margin-top:4px}
 
-/* LOCATION STRIP */
-.location-strip{background:linear-gradient(180deg,var(--dark2),var(--dark));padding:54px 0 60px;border-bottom:1px solid #1f1f1f;overflow:hidden}
-.location-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;max-width:1200px;margin:0 auto 26px;padding:0 clamp(20px,4vw,40px)}
-.location-head .section-desc{max-width:680px}
-.location-note{font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);white-space:nowrap}
-.location-scroll{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:4px clamp(20px,4vw,40px) 14px;max-width:100vw;scrollbar-width:thin;scrollbar-color:var(--red) #222}
-.location-scroll::-webkit-scrollbar{height:8px}.location-scroll::-webkit-scrollbar-track{background:#181818}.location-scroll::-webkit-scrollbar-thumb{background:var(--red);border-radius:99px}
-.location-card{flex:0 0 268px;scroll-snap-align:start;background:linear-gradient(180deg,var(--red2),#a91520);border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:24px 22px 22px;min-height:206px;display:flex;flex-direction:column;box-shadow:0 14px 35px rgba(0,0,0,.28)}
-.location-card.coming{background:linear-gradient(180deg,#d33540,#99131d);border-color:rgba(201,168,76,.65)}
-.state-tag{align-self:flex-start;background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.22);color:#fff;border-radius:99px;padding:6px 11px;font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:1.6px;text-transform:uppercase;margin-bottom:14px}
-.location-card h3{font-family:'Oswald',sans-serif;font-size:21px;line-height:1.08;text-transform:uppercase;margin-bottom:12px;color:#fff;min-height:46px;display:flex;align-items:flex-start}
-.location-card address{font-style:normal;color:rgba(255,255,255,.86);font-size:13px;line-height:1.5;margin-bottom:18px;min-height:40px}
-.location-card a,.location-card .status{color:#fff;text-decoration:none;font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;margin-top:auto;padding-top:14px;border-top:1px solid rgba(255,255,255,.18)}
-.location-card a:hover{color:#fff}
-
 /* SECTION UTILS */
 .section-label{font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:5px;text-transform:uppercase;color:var(--red);display:block;margin-bottom:10px}
 .section-title{font-family:'Oswald',sans-serif;font-size:clamp(28px,4vw,44px);font-weight:700;text-transform:uppercase;margin-bottom:14px}
@@ -169,7 +154,6 @@ footer a:hover{color:var(--red2)}
   .footer-grid{grid-template-columns:1fr 1fr;gap:20px}
   .form-row{grid-template-columns:1fr}
   .btn{width:100%;justify-content:center;text-align:center}
-  .location-head{display:block}.location-note{margin-top:14px}.location-card{flex-basis:235px}
   .assistant-wrap{grid-template-columns:1fr}.assistant-copy{position:static}.chat-window{height:410px;padding:22px 18px}.chat-message{margin-bottom:18px}.bubble{max-width:90%;padding:14px 15px;line-height:1.65}.lead-capture-grid{grid-template-columns:1fr}.floating-assistant{left:14px;right:14px;bottom:14px;width:auto}
 }
 @media(max-width:980px){
@@ -229,35 +213,6 @@ footer a:hover{color:var(--red2)}
     <div class="num-card"><div class="val">12+</div><div class="lbl">Locations &amp; Growing</div></div>
   </div>
 </div>
-
-<!-- LOCATION STRIP -->
-<section class="location-strip" aria-label="Pizza World current locations">
-  <div class="location-head">
-    <div>
-      <span class="section-label">Proof of Growth</span>
-      <h2 class="section-title">Pizza World <span>Locations</span></h2>
-      <p class="section-desc">From Florida to Iowa and serving communities across the United States — with more territories available for the right franchise owners.</p>
-    </div>
-    <div class="location-note">Scroll locations →</div>
-  </div>
-  <div class="location-scroll">
-    <article class="location-card"><div><span class="state-tag">Florida</span><h3>Odessa</h3><address>2328 Gunn Hwy.<br>Odessa, FL</address></div><a href="tel:7274408625">(727) 440-8625</a></article>
-    <article class="location-card coming"><div><span class="state-tag">Florida</span><h3>Wesley Chapel</h3><address>26863 Wesley Chapel Blvd<br>Wesley Chapel, FL</address></div><span class="status">Coming Soon</span></article>
-    <article class="location-card coming"><div><span class="state-tag">Florida</span><h3>Ruskin</h3><address>3017 19th Avenue, Suite 3069<br>Ruskin, FL</address></div><span class="status">Coming Soon</span></article>
-    <article class="location-card"><div><span class="state-tag">Illinois</span><h3>Belleville</h3><address>651 Carlyle Blvd.<br>Belleville, IL</address></div><a href="tel:6182771111">(618) 277-1111</a></article>
-    <article class="location-card"><div><span class="state-tag">Illinois</span><h3>Granite City</h3><address>1535 Johnson Rd.<br>Granite City, IL</address></div><a href="tel:6184511111">(618) 451-1111</a></article>
-    <article class="location-card coming"><div><span class="state-tag">Illinois</span><h3>Venice</h3><address>329 Broadway<br>Venice, IL</address></div><span class="status">Coming Soon</span></article>
-    <article class="location-card"><div><span class="state-tag">Iowa</span><h3>Cedar Rapids</h3><address>5100 Fountains Dr. NE, Ste. 100<br>Cedar Rapids, IA</address></div><a href="tel:3193932000">(319) 393-2000</a></article>
-    <article class="location-card coming"><div><span class="state-tag">Iowa</span><h3>Waterloo</h3><address>126 Ridgeway Avenue, Suite C<br>Waterloo, IA 50702</address></div><span class="status">Coming Soon</span></article>
-    <article class="location-card"><div><span class="state-tag">Missouri</span><h3>Xtreme Racing Center</h3><address>3600 W. 76 Country Blvd.<br>Branson, MO</address></div><a href="tel:4173377778">(417) 337-7778</a></article>
-    <article class="location-card"><div><span class="state-tag">Missouri</span><h3>Branson — Stillwater</h3><address>21 Stillwater Trail<br>Branson, MO</address></div><a href="tel:4173380255">(417) 338-0255</a></article>
-    <article class="location-card"><div><span class="state-tag">Missouri</span><h3>Creve Coeur</h3><address>12305 Olive Blvd.<br>Creve Coeur, MO</address></div><a href="tel:3145760000">(314) 576-0000</a></article>
-    <article class="location-card"><div><span class="state-tag">Missouri</span><h3>Shrewsbury</h3><address>7504 Murdoch Ave.<br>Shrewsbury, MO</address></div><a href="tel:3147812433">(314) 781-2433</a></article>
-    <article class="location-card"><div><span class="state-tag">Missouri</span><h3>Branson — Cross Creek</h3><address>225 Cross Creek Blvd., Ste. F<br>Branson, MO</address></div><a href="tel:4173344445">(417) 334-4445</a></article>
-    <article class="location-card"><div><span class="state-tag">Missouri</span><h3>Cape Fair</h3><address>1500 Shaderack Rd.<br>Cape Fair, MO</address></div><span class="status">Seasonal Location</span></article>
-    <article class="location-card"><div><span class="state-tag">Missouri</span><h3>Galena</h3><address>1810 Hideaway Rd.<br>Galena, MO</address></div><span class="status">Seasonal Location</span></article>
-  </div>
-</section>
 
 <!-- WHY PIZZA WORLD -->
 <section class="why" id="why">
