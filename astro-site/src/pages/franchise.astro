@@ -455,7 +455,11 @@ footer a:hover{color:var(--red2)}
   <p>Complete the inquiry form or call us directly. A Pizza World franchise representative will walk you through everything — no pressure, no obligation.</p>
   <a class="cta-phone" href="tel:4177301177">(417) 730-1177</a>
   <p style="color:rgba(255,255,255,.5);font-size:13px;margin-bottom:30px;">Or fill out the form below and we'll be in touch.</p>
-  <form class="contact-form" onsubmit="submitForm(event)">
+  <form class="contact-form" action="https://formsubmit.co/ryan@pizzaworldusa.net" method="POST">
+    <input type="hidden" name="_cc" value="eric@pizzaworldusa.net">
+    <input type="hidden" name="_subject" value="New Pizza World Franchise Inquiry">
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_captcha" value="true">
     <div class="form-row">
       <div class="form-group"><label>First Name *</label><input type="text" name="first" required placeholder="First Name"></div>
       <div class="form-group"><label>Last Name *</label><input type="text" name="last" required placeholder="Last Name"></div>
@@ -587,16 +591,6 @@ if (navToggle && navLinks) {
     });
   });
 }
-function submitForm(e) {
-  e.preventDefault();
-  var f = e.target;
-  var data = new FormData(f);
-  var info = '';
-  data.forEach(function(v,k){ info += k + ': ' + v + '\n'; });
-  f.style.display = 'none';
-  document.getElementById('formSuccess').style.display = 'block';
-}
-
 var franchiseAnswers = [
   {keys:['cost','investment','startup','open'],answer:'A standard Pizza World store is currently presented around $138K–$286K estimated startup cost. The C-Store concept is shown around $92K–$232K. The initial franchise fee is listed as $19,500. Final costs depend on site, size, buildout, equipment, market, and the official franchise documents.'},
   {keys:['royalty','royalties','marketing fee','fees','fee'],answer:'Pizza World promotes a 2.75% royalty on net sales and no required marketing fund contribution. Franchisees still need to invest in local marketing for their own market. Official documents control final fee obligations.'},
