@@ -1,3 +1,22 @@
+---
+const navLocations = [
+  { id: 'odessa-fl', name: 'Odessa', status: 'Open', type: 'Delivery / Carryout', address: '2328 Gunn Hwy.', city: 'Odessa', state: 'FL', zip: '33556', phone: '(727) 440-8625', hours: 'Call store for current hours', orderUrl: 'https://pizzaworldodessa.foodtecsolutions.com/ordering/home', lat: 28.1916942, lng: -82.5942672 },
+  { id: 'new-port-richey-fl', name: 'New Port Richey', status: 'Open', type: 'Delivery / Carryout', address: '8130 Little Rd.', city: 'New Port Richey', state: 'FL', zip: '34654', phone: '(727) 339-0007', hours: 'Call store for current hours', orderUrl: 'https://pizzaworldnewportrichey.foodtecsolutions.com/ordering/home', lat: 28.2735, lng: -82.6721 },
+  { id: 'belleville-il', name: 'Belleville', status: 'Open', type: 'Delivery / Carryout', address: '651 Carlyle Blvd.', city: 'Belleville', state: 'IL', zip: '62221', phone: '(618) 277-1111', hours: 'Call store for current hours', orderUrl: 'https://pizzaworld-belleville.foodtecsolutions.com/ordering/home', lat: 38.5163437, lng: -89.9572132 },
+  { id: 'granite-city-il', name: 'Granite City', status: 'Open', type: 'Delivery / Carryout', address: '1535 Johnson Rd.', city: 'Granite City', state: 'IL', zip: '62040', phone: '(618) 451-1111', hours: 'Call store for current hours', orderUrl: 'https://pizzaworld-granitecity.foodtecsolutions.com/ordering/home', lat: 38.7231503, lng: -90.1206987 },
+  { id: 'cedar-rapids-ia', name: 'Cedar Rapids', status: 'Open', type: 'Delivery / Carryout / Dine In', address: '5100 Fountains Dr. NE - Ste. 100', city: 'Cedar Rapids', state: 'IA', zip: '52411', phone: '(319) 393-2000', hours: 'Call store for current hours', orderUrl: 'https://pizzaworld-cedarrapids.foodtecsolutions.com/ordering/home', lat: 42.0310131, lng: -91.6987106 },
+  { id: 'xtreme-racing-center-branson-mo', name: 'Xtreme Racing Center', status: 'Open', type: 'Delivery / Carryout', address: '3600 W. 76 Country Blvd.', city: 'Branson', state: 'MO', zip: '65616', phone: '(417) 337-7778', hours: 'Call store for current hours', orderUrl: 'https://pizzaworld-xtremeracingcenter.foodtecsolutions.com/ordering/home', lat: 36.645765, lng: -93.2880351 },
+  { id: 'branson-stillwater-mo', name: 'Branson - Stillwater', status: 'Open', type: 'Delivery / Carryout', address: '238 Stillwater Trail', city: 'Branson', state: 'MO', zip: '65616', phone: '(417) 338-0255', hours: 'Call store for current hours', orderUrl: 'https://pizzaworld-branson.foodtecsolutions.com/ordering/home', lat: 36.6407, lng: -93.3438 },
+  { id: 'creve-coeur-mo', name: 'Creve Coeur', status: 'Open', type: 'Delivery / Carryout', address: '12305 Olive Blvd.', city: 'Creve Coeur', state: 'MO', zip: '63141', phone: '(314) 576-0000', hours: 'Call store for current hours', orderUrl: 'https://pizzaworld-crevecoeur.foodtecsolutions.com/ordering/home', lat: 38.6732929, lng: -90.4549261 },
+  { id: 'shrewsbury-mo', name: 'Shrewsbury', status: 'Open', type: 'Delivery / Carryout', address: '7504 Murdoch Ave.', city: 'Shrewsbury', state: 'MO', zip: '63119', phone: '(314) 781-2433', hours: 'Call store for current hours', orderUrl: 'https://pizzaworld-shrewsbury.foodtecsolutions.com/ordering/home', lat: 38.5910071, lng: -90.3275411 },
+  { id: 'branson-cross-creek-mo', name: 'Branson - Cross Creek', status: 'Open', type: 'Delivery / Carryout / Dine In', address: '225 Cross Creek Blvd. - Ste. F', city: 'Branson', state: 'MO', zip: '65616', phone: '(417) 334-4445', hours: 'Call store for current hours', orderUrl: 'https://pizzaworld-crosscreek.foodtecsolutions.com/ordering/home', lat: 36.6419, lng: -93.2442 },
+  { id: 'cape-fair-mo', name: 'Cape Fair', status: 'Open', type: 'Delivery / Carryout / Lake Dining', address: '1500 Shadrack Rd.', city: 'Cape Fair', state: 'MO', zip: '65624', phone: '(417) 538-4164', hours: 'Call store for current hours', orderUrl: 'https://pizzaworld-capefair.foodtecsolutions.com/ordering/home', lat: 36.7305, lng: -93.5148 },
+  { id: 'galena-mo', name: 'Galena, MO', status: 'Open', type: 'Delivery / Carryout / Lake Dining', address: '1810 Hideaway Rd.', city: 'Galena', state: 'MO', zip: '65656', phone: '(417) 258-8229', hours: 'Call store for current hours', orderUrl: 'https://pizzaworld-hideaway.foodtecsolutions.com/ordering/home', lat: 36.8056, lng: -93.4706 },
+  { id: 'wesley-chapel-fl', name: 'Wesley Chapel', status: 'Coming Soon', type: 'Coming Soon', address: '26863 Wesley Chapel Blvd.', city: 'Wesley Chapel', state: 'FL', zip: '34639', phone: '', hours: 'Coming Soon', orderUrl: '', lat: 28.1916855, lng: -82.3979973 },
+  { id: 'ruskin-fl', name: 'Ruskin', status: 'Coming Soon', type: 'Coming Soon', address: '3066 19th Ave.', city: 'Ruskin', state: 'FL', zip: '33570', phone: '', hours: 'Coming Soon', orderUrl: '', lat: 27.7347696, lng: -82.3881419 },
+  { id: 'bonne-terre-mo', name: 'Bonne Terre', status: 'Coming Soon', type: 'Coming Soon', address: 'Location coming soon', city: 'Bonne Terre', state: 'MO', zip: '63628', phone: '', hours: 'Coming Soon', orderUrl: '', lat: 37.9247678, lng: -90.5510587 },
+];
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,6 +34,52 @@ img{max-width:100%}
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,10,0.97);backdrop-filter:blur(12px);border-bottom:2px solid var(--red);display:flex;align-items:center;justify-content:space-between;padding:0 clamp(16px,3vw,40px);height:70px}
 nav img{height:50px;filter:brightness(0) invert(1)}
+.nav-location{position:relative;flex:0 1 360px;margin:0 clamp(12px,2vw,28px)}
+.location-trigger{width:100%;height:48px;border:0;border-radius:999px;background:#fff;color:#151515;padding:7px 18px 7px 24px;display:flex;align-items:center;justify-content:space-between;gap:18px;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.26);text-align:left}
+.location-trigger-main{display:flex;flex-direction:column;min-width:0}
+.location-trigger-title{font-size:14px;line-height:1.2;color:#30333a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.location-trigger-sub{font-size:12px;line-height:1.2;color:var(--red);display:flex;align-items:center;gap:5px}
+.location-trigger-sub::after{content:'';width:7px;height:7px;border-right:2px solid var(--red);border-bottom:2px solid var(--red);transform:rotate(45deg) translateY(-2px)}
+.location-dropdown{position:absolute;top:58px;left:0;width:min(720px,calc(100vw - 32px));max-height:calc(100vh - 92px);display:none;background:#fff;color:#151515;border-radius:0 0 16px 16px;box-shadow:0 22px 70px rgba(0,0,0,.42);overflow:hidden}
+.location-dropdown.open{display:block}
+.location-search-row{display:grid;grid-template-columns:1fr auto;gap:16px;padding:24px 32px 14px;align-items:center}
+.location-search{position:relative}
+.location-search input{width:100%;height:60px;border:1px solid #dde1e6;border-radius:3px;background:#fff;color:#151515;padding:0 52px 0 50px;font-size:16px}
+.location-search input:focus{outline:none;border-color:#42ad38;box-shadow:0 0 0 3px rgba(66,173,56,.13)}
+.location-search::before{content:'⌖';position:absolute;left:19px;top:50%;transform:translateY(-50%);color:#42ad38;font-size:25px;line-height:1}
+.location-search::after{content:'';position:absolute;right:22px;top:50%;width:15px;height:15px;border:3px solid var(--red);border-radius:50%;transform:translateY(-56%)}
+.location-use-current{height:48px;border:0;background:transparent;color:#39a935;font-weight:800;font-size:15px;white-space:nowrap;cursor:pointer}
+.location-use-current::before{content:'➤';display:inline-block;margin-right:9px;color:#39a935;transform:rotate(-45deg)}
+.location-use-current:disabled{opacity:.55;cursor:progress}
+.location-status{min-height:24px;padding:0 32px 8px;color:#667085;font-size:13px;line-height:1.45}
+.location-options{max-height:390px;overflow:auto;padding:0 20px 18px 32px}
+.location-options::-webkit-scrollbar{width:8px}.location-options::-webkit-scrollbar-track{background:#f1f5f9;border-radius:999px}.location-options::-webkit-scrollbar-thumb{background:#39a935;border-radius:999px}
+.location-option{display:grid;grid-template-columns:1fr auto;gap:20px;padding:18px 10px 18px 0;border-bottom:1px solid #edf0f2;background:#fff}
+.location-option:nth-child(even){background:#f6fbf5}
+.location-option.selected{box-shadow:inset 4px 0 0 #39a935;background:#f2fbf1}
+.location-option.hidden{display:none}
+.location-option-name{font-family:'Oswald',sans-serif;font-size:14px;letter-spacing:1.7px;text-transform:uppercase;color:#111;margin-bottom:4px}
+.location-option-type{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:#39a935;margin-bottom:5px}
+.location-option-address{font-family:'Oswald',sans-serif;font-size:22px;line-height:1.12;letter-spacing:.5px;text-transform:uppercase;color:#111;max-width:460px}
+.location-option-meta{display:flex;flex-wrap:wrap;gap:16px;margin-top:13px;color:#4b5563;font-size:13px}
+.location-option-meta a{color:#39a935;text-decoration:none;font-weight:800}
+.location-option-distance{font-family:'Oswald',sans-serif;color:#7a828d;font-size:12px;letter-spacing:1px;text-transform:uppercase}
+.location-option-actions{display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:10px}
+.location-order{border:0;border-radius:999px;background:var(--red2);color:#fff;font-family:'Oswald',sans-serif;font-size:17px;letter-spacing:2px;text-transform:uppercase;padding:15px 32px;min-width:150px;cursor:pointer}
+.location-order:hover{background:var(--red)}
+.location-order:disabled{background:#cbd5e1;color:#64748b;cursor:not-allowed}
+.location-select{border:0;background:transparent;color:#39a935;font-size:13px;font-weight:800;cursor:pointer}
+.location-rewards{display:grid;grid-template-columns:1fr auto auto;gap:18px;align-items:center;background:#39a935;color:#fff;padding:22px 32px}
+.location-rewards h3{font-family:'Oswald',sans-serif;text-transform:uppercase;font-size:22px;line-height:1.08;letter-spacing:.7px}
+.location-rewards a{font-family:'Oswald',sans-serif;text-decoration:none;text-transform:uppercase;letter-spacing:2px;border-radius:999px;padding:13px 26px;color:#fff;border:1px solid rgba(255,255,255,.7)}
+.location-rewards a:first-of-type{background:#fff;color:#39a935;border-color:#fff}
+.location-confirm{position:fixed;inset:0;z-index:120;display:none;align-items:center;justify-content:center;padding:18px}
+.location-confirm.open{display:flex}
+.location-confirm-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.78)}
+.location-confirm-card{position:relative;width:min(100%,430px);background:#fff;color:#151515;border-radius:10px;border-top:5px solid var(--red);padding:26px;box-shadow:0 28px 80px rgba(0,0,0,.42)}
+.location-confirm-card h2{font-family:'Oswald',sans-serif;text-transform:uppercase;font-size:28px;margin-bottom:8px}
+.location-confirm-card p{color:#475569;font-size:14px;line-height:1.65;margin-bottom:18px}.location-confirm-card strong{color:#111}
+.location-confirm-actions{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}.location-confirm-actions button{border-radius:5px;padding:12px 16px;font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:1.2px;cursor:pointer;border:1px solid #d8dde3;background:#fff;color:#111}.location-confirm-actions .confirm{background:var(--red);border-color:var(--red);color:#fff}
 .nav-links{display:flex;gap:4px;list-style:none;align-items:center}
 .nav-links a{display:block;padding:10px clamp(8px,1vw,14px);color:var(--white);text-decoration:none;font-family:'Oswald',sans-serif;font-size:clamp(11px,.85vw,12px);letter-spacing:1.5px;text-transform:uppercase;border-radius:4px;transition:all .2s;white-space:nowrap}
 .nav-links a:hover{color:var(--red2);background:rgba(255,255,255,.04)}
@@ -156,12 +221,15 @@ footer a:hover{color:var(--red2)}
 }
 @media(max-width:980px){
   .nav-toggle{display:block}
+  nav{height:auto;min-height:70px;flex-wrap:wrap;padding-top:10px;padding-bottom:10px}
+  .nav-location{order:3;flex:1 0 100%;margin:10px 0 0}.location-dropdown{left:0;right:0;width:100%;top:58px}.location-search-row{grid-template-columns:1fr;padding:18px}.location-options{padding:0 10px 14px 18px}.location-option{grid-template-columns:1fr}.location-option-actions{align-items:flex-start}.location-rewards{grid-template-columns:1fr;gap:12px}
   .nav-links{position:absolute;top:70px;left:0;right:0;display:none;flex-direction:column;align-items:stretch;gap:0;background:rgba(10,10,10,.98);border-bottom:2px solid var(--red);padding:10px 18px 18px;box-shadow:0 18px 40px rgba(0,0,0,.4)}
   .nav-links.open{display:flex}
   .nav-links a{padding:13px 10px;font-size:13px;letter-spacing:1.4px;white-space:normal}
   .nav-cta{display:block;text-align:center;margin-top:8px;padding:14px!important}
 }
 @media(max-width:560px){
+  .location-trigger-title{font-size:13px}.location-trigger{padding-left:18px}.location-option-address{font-size:19px}.location-option-meta{gap:10px}.location-order{width:100%;padding:14px 22px}.location-select{width:100%;text-align:left}
   .hero h1{font-size:40px}.hero p{font-size:16px}.hero-buttons{width:100%}
   .numbers-grid{grid-template-columns:1fr}.num-card{border-right:none;border-bottom:1px solid rgba(255,255,255,.12);padding:28px 20px}.num-card:last-child{border-bottom:none}
   .food-card{flex-basis:min(260px,78vw)}.invest-card .val{font-size:31px}.cta h2{font-size:38px}.cta-phone{font-size:26px}
@@ -174,16 +242,61 @@ footer a:hover{color:var(--red2)}
 <!-- NAV -->
 <nav>
   <a href="#"><img src="https://mypizzaworld.net/wp-content/uploads/2024/02/PW-NEW-logo-1996-R-1.png" alt="Pizza World"></a>
+  <div class="nav-location" data-nav-location>
+    <button class="location-trigger" type="button" data-location-trigger aria-expanded="false" aria-controls="navLocationDropdown">
+      <span class="location-trigger-main">
+        <span class="location-trigger-title" data-location-trigger-title>Find a Pizza World Near You</span>
+        <span class="location-trigger-sub">View Locations</span>
+      </span>
+    </button>
+    <div class="location-dropdown" id="navLocationDropdown" data-location-dropdown>
+      <div class="location-search-row">
+        <label class="location-search" aria-label="Search locations">
+          <input type="search" data-nav-location-search placeholder="Search by city, state or zip code">
+        </label>
+        <button class="location-use-current" type="button" data-nav-use-location>Use Current Location</button>
+      </div>
+      <p class="location-status" data-nav-location-status>Choose a Pizza World store before ordering.</p>
+      <div class="location-options" data-nav-location-list>
+        {navLocations.map((location) => (
+          <article class="location-option" data-nav-location-card data-location-id={location.id}>
+            <div>
+              <div class="location-option-name">{location.name}</div>
+              <div class="location-option-type">{location.type}</div>
+              <div class="location-option-address">{location.address}<br>{location.city}, {location.state} {location.zip}</div>
+              <div class="location-option-meta">
+                {location.phone && <a href={`tel:${location.phone.replace(/\D/g, '')}`}>{location.phone}</a>}
+                <span>{location.hours}</span>
+                <a target="_blank" rel="noopener" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${location.address}, ${location.city}, ${location.state} ${location.zip}`)}`}>Get Directions</a>
+                <span class="location-option-distance" data-nav-distance-for={location.id}></span>
+              </div>
+            </div>
+            <div class="location-option-actions">
+              <button class="location-order" type="button" data-nav-order-location={location.id} disabled={!location.orderUrl}>Order Now</button>
+              <button class="location-select" type="button" data-nav-select-location={location.id}>Set as my store</button>
+            </div>
+          </article>
+        ))}
+      </div>
+      <div class="location-rewards">
+        <h3>Start Earning<br>Rewards Today!</h3>
+        <a href="locations.html">Sign Up</a>
+        <a href="locations.html">Sign In</a>
+      </div>
+    </div>
+  </div>
   <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">☰</button>
   <ul class="nav-links">
     <li><a href="#">Home</a></li>
     <li><a href="#why">Why Pizza World</a></li>
     <li><a href="#food">The Food</a></li>
     <li><a href="#investment">Investment</a></li>
+    <li><a href="locations.html">Locations</a></li>
     <li><a href="#marketing">Marketing</a></li>
     <li><a href="#testimonials">Testimonials</a></li>
     <li><a href="#team">Leadership</a></li>
     <li><a href="#faq">FAQ</a></li>
+    <li><a href="#" data-nav-order-selected>Order Now</a></li>
     <li><a href="#contact" class="nav-cta">Start Your Franchise</a></li>
   </ul>
 </nav>
@@ -399,6 +512,9 @@ footer a:hover{color:var(--red2)}
     <div class="loc-badge">Florida</div>
   </div>
   <p style="color:var(--gray);font-size:14px;font-weight:700;margin-top:20px;">Territories available nationwide. Multi-unit deals available.</p>
+  <div style="margin-top:28px;">
+    <a class="btn btn-red" href="locations.html">Find a Pizza World</a>
+  </div>
 </section>
 
 <!-- CTA -->
@@ -487,6 +603,18 @@ footer a:hover{color:var(--red2)}
 </section>
 <button class="floating-assistant" type="button" id="floatingAssistant">Ask Franchise Questions</button>
 
+<div class="location-confirm" data-nav-order-modal aria-hidden="true">
+  <div class="location-confirm-backdrop" data-nav-close-order></div>
+  <div class="location-confirm-card" role="dialog" aria-modal="true" aria-labelledby="navConfirmTitle">
+    <h2 id="navConfirmTitle">Confirm Your Store</h2>
+    <p>You are about to order from <strong data-nav-modal-location>Pizza World</strong>.</p>
+    <div class="location-confirm-actions">
+      <button type="button" data-nav-close-order>Change Store</button>
+      <button class="confirm" type="button" data-nav-confirm-order>Continue To Order</button>
+    </div>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-grid">
@@ -496,16 +624,16 @@ footer a:hover{color:var(--red2)}
     </div>
     <div>
       <h4>Franchise Info</h4>
-      <a href="#">Why Pizza World</a>
-      <a href="#">The Food</a>
-      <a href="#">Investment Details</a>
-      <a href="#">Marketing Support</a>
-      <a href="#">FAQ</a>
+      <a href="#why">Why Pizza World</a>
+      <a href="#food">The Food</a>
+      <a href="#investment">Investment Details</a>
+      <a href="#marketing">Marketing Support</a>
+      <a href="#faq">FAQ</a>
     </div>
     <div>
       <h4>Company</h4>
-      <a href="https://pizzaworldonline.com">Order Pizza World</a>
-      <a href="#">Testimonials</a>
+      <a href="locations.html">Order Pizza World</a>
+      <a href="#testimonials">Testimonials</a>
       <a href="#">Blog</a>
       <a href="#">Careers</a>
     </div>
@@ -523,7 +651,193 @@ footer a:hover{color:var(--red2)}
   </div>
 </footer>
 
+<script type="application/json" id="nav-location-data" set:html={JSON.stringify(navLocations)}></script>
 <script>
+var navLocationDataNode = document.getElementById('nav-location-data');
+var navLocationData = navLocationDataNode ? JSON.parse(navLocationDataNode.textContent || '[]') : [];
+var navLocationStorageKey = 'pw_selected_location';
+var navLocationPendingOrder = null;
+var navLocationCoords = null;
+function getNavLocation(id){
+  return navLocationData.find(function(location){ return location.id === id; });
+}
+function navLocationDistance(lat1,lng1,lat2,lng2){
+  var earthRadius = 3959;
+  var dLat = (lat2 - lat1) * Math.PI / 180;
+  var dLng = (lng2 - lng1) * Math.PI / 180;
+  var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+    Math.sin(dLng / 2) * Math.sin(dLng / 2);
+  return earthRadius * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+function setNavLocation(location){
+  if(!location) return;
+  localStorage.setItem(navLocationStorageKey, JSON.stringify(location));
+  var title = document.querySelector('[data-location-trigger-title]');
+  if(title) title.textContent = location.name + ', ' + location.state;
+  var status = document.querySelector('[data-nav-location-status]');
+  if(status) status.textContent = 'Selected ' + location.name + '. Order Now will use this store.';
+  document.querySelectorAll('[data-nav-location-card]').forEach(function(card){
+    card.classList.toggle('selected', card.getAttribute('data-location-id') === location.id);
+  });
+}
+function openNavLocationDropdown(){
+  var dropdown = document.querySelector('[data-location-dropdown]');
+  var trigger = document.querySelector('[data-location-trigger]');
+  if(dropdown) dropdown.classList.add('open');
+  if(trigger) trigger.setAttribute('aria-expanded','true');
+  window.setTimeout(function(){
+    var input = document.querySelector('[data-nav-location-search]');
+    if(input) input.focus();
+  }, 50);
+}
+function closeNavLocationDropdown(){
+  var dropdown = document.querySelector('[data-location-dropdown]');
+  var trigger = document.querySelector('[data-location-trigger]');
+  if(dropdown) dropdown.classList.remove('open');
+  if(trigger) trigger.setAttribute('aria-expanded','false');
+}
+function filterNavLocations(){
+  var input = document.querySelector('[data-nav-location-search]');
+  var q = input ? input.value.trim().toLowerCase() : '';
+  var visible = 0;
+  document.querySelectorAll('[data-nav-location-card]').forEach(function(card){
+    var location = getNavLocation(card.getAttribute('data-location-id'));
+    if(!location) return;
+    var haystack = [location.name, location.address, location.city, location.state, location.zip, location.type].join(' ').toLowerCase();
+    var match = !q || haystack.indexOf(q) !== -1;
+    card.classList.toggle('hidden', !match);
+    visible += match ? 1 : 0;
+  });
+  var status = document.querySelector('[data-nav-location-status]');
+  if(status && q) status.textContent = visible ? visible + ' matching location' + (visible === 1 ? '' : 's') + '.' : 'No matching locations found.';
+}
+function updateNavDistances(){
+  if(!navLocationCoords) return;
+  var list = document.querySelector('[data-nav-location-list]');
+  var cards = Array.prototype.slice.call(document.querySelectorAll('[data-nav-location-card]'));
+  cards.forEach(function(card){
+    var location = getNavLocation(card.getAttribute('data-location-id'));
+    if(!location) return;
+    var miles = navLocationDistance(navLocationCoords.lat, navLocationCoords.lng, location.lat, location.lng);
+    card.dataset.distance = String(miles);
+    var distance = card.querySelector('[data-nav-distance-for]');
+    if(distance) distance.textContent = miles.toFixed(1) + ' miles';
+  });
+  cards.sort(function(a,b){ return parseFloat(a.dataset.distance || '999999') - parseFloat(b.dataset.distance || '999999'); });
+  cards.forEach(function(card){ if(list) list.appendChild(card); });
+  var nearest = cards[0] ? getNavLocation(cards[0].getAttribute('data-location-id')) : null;
+  if(nearest) setNavLocation(nearest);
+}
+function openNavOrderModal(location){
+  var modal = document.querySelector('[data-nav-order-modal]');
+  var modalLocation = document.querySelector('[data-nav-modal-location]');
+  var status = document.querySelector('[data-nav-location-status]');
+  if(!location || !location.orderUrl){
+    if(status) status.textContent = 'That location is marked Coming Soon, so online ordering is not active yet.';
+    openNavLocationDropdown();
+    return;
+  }
+  navLocationPendingOrder = location;
+  setNavLocation(location);
+  if(modalLocation) modalLocation.textContent = location.name + ', ' + location.state;
+  if(modal){
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden','false');
+  }
+}
+function closeNavOrderModal(){
+  var modal = document.querySelector('[data-nav-order-modal]');
+  if(modal){
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden','true');
+  }
+}
+var navLocationTrigger = document.querySelector('[data-location-trigger]');
+if(navLocationTrigger){
+  navLocationTrigger.addEventListener('click', function(){
+    var dropdown = document.querySelector('[data-location-dropdown]');
+    if(dropdown && dropdown.classList.contains('open')) closeNavLocationDropdown();
+    else openNavLocationDropdown();
+  });
+}
+var navLocationSearch = document.querySelector('[data-nav-location-search]');
+if(navLocationSearch) navLocationSearch.addEventListener('input', filterNavLocations);
+var navUseLocation = document.querySelector('[data-nav-use-location]');
+if(navUseLocation){
+  navUseLocation.addEventListener('click', function(){
+    var status = document.querySelector('[data-nav-location-status]');
+    if(!navigator.geolocation){
+      if(status) status.textContent = 'Current location is not supported by this browser.';
+      return;
+    }
+    navUseLocation.textContent = 'Locating...';
+    navUseLocation.disabled = true;
+    navigator.geolocation.getCurrentPosition(function(position){
+      navLocationCoords = {lat: position.coords.latitude, lng: position.coords.longitude};
+      updateNavDistances();
+      filterNavLocations();
+      if(status) status.textContent = 'Nearest Pizza World selected. You can still choose a different store.';
+      navUseLocation.textContent = 'Use Current Location';
+      navUseLocation.disabled = false;
+    }, function(){
+      if(status) status.textContent = 'Could not get your current location. Search by city, state, or ZIP instead.';
+      navUseLocation.textContent = 'Use Current Location';
+      navUseLocation.disabled = false;
+    }, {enableHighAccuracy:true,timeout:10000,maximumAge:300000});
+  });
+}
+document.addEventListener('click', function(event){
+  if(event.target.closest('[data-nav-location]')) return;
+  if(event.target.closest('[data-nav-order-modal]')) return;
+  closeNavLocationDropdown();
+});
+document.addEventListener('click', function(event){
+  var select = event.target.closest('[data-nav-select-location]');
+  if(select){
+    setNavLocation(getNavLocation(select.getAttribute('data-nav-select-location')));
+    closeNavLocationDropdown();
+    return;
+  }
+  var order = event.target.closest('[data-nav-order-location]');
+  if(order){
+    openNavOrderModal(getNavLocation(order.getAttribute('data-nav-order-location')));
+    return;
+  }
+  if(event.target.closest('[data-nav-order-selected]')){
+    event.preventDefault();
+    var selected = null;
+    try { selected = JSON.parse(localStorage.getItem(navLocationStorageKey) || 'null'); } catch(error) {}
+    if(!selected){
+      var status = document.querySelector('[data-nav-location-status]');
+      if(status) status.textContent = 'Choose a Pizza World location first, then Order Now will go to that store.';
+      openNavLocationDropdown();
+      return;
+    }
+    openNavOrderModal(getNavLocation(selected.id) || selected);
+    return;
+  }
+  if(event.target.closest('[data-nav-close-order]')) closeNavOrderModal();
+});
+var navConfirmOrder = document.querySelector('[data-nav-confirm-order]');
+if(navConfirmOrder){
+  navConfirmOrder.addEventListener('click', function(){
+    if(navLocationPendingOrder && navLocationPendingOrder.orderUrl){
+      window.open(navLocationPendingOrder.orderUrl, '_blank', 'noopener');
+    }
+    closeNavOrderModal();
+  });
+}
+try {
+  var storedNavLocation = JSON.parse(localStorage.getItem(navLocationStorageKey) || 'null');
+  if(storedNavLocation && storedNavLocation.id) setNavLocation(getNavLocation(storedNavLocation.id) || storedNavLocation);
+} catch(error) {}
+document.addEventListener('keydown', function(event){
+  if(event.key === 'Escape'){
+    closeNavLocationDropdown();
+    closeNavOrderModal();
+  }
+});
 var navToggle = document.querySelector('.nav-toggle');
 var navLinks = document.querySelector('.nav-links');
 if (navToggle && navLinks) {
