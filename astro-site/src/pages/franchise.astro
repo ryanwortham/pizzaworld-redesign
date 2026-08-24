@@ -242,49 +242,6 @@ footer a:hover{color:var(--red2)}
 <!-- NAV -->
 <nav>
   <a href="#"><img src="https://mypizzaworld.net/wp-content/uploads/2024/02/PW-NEW-logo-1996-R-1.png" alt="Pizza World"></a>
-  <div class="nav-location" data-nav-location>
-    <button class="location-trigger" type="button" data-location-trigger aria-expanded="false" aria-controls="navLocationDropdown">
-      <span class="location-trigger-main">
-        <span class="location-trigger-title" data-location-trigger-title>Find a Pizza World Near You</span>
-        <span class="location-trigger-sub">View Locations</span>
-      </span>
-    </button>
-    <div class="location-dropdown" id="navLocationDropdown" data-location-dropdown>
-      <div class="location-search-row">
-        <label class="location-search" aria-label="Search locations">
-          <input type="search" data-nav-location-search placeholder="Search by city, state or zip code">
-        </label>
-        <button class="location-use-current" type="button" data-nav-use-location>Use Current Location</button>
-      </div>
-      <p class="location-status" data-nav-location-status>Choose a Pizza World store before ordering.</p>
-      <div class="location-options" data-nav-location-list>
-        {navLocations.map((location) => (
-          <article class="location-option" data-nav-location-card data-location-id={location.id}>
-            <div>
-              <div class="location-option-name">{location.name}</div>
-              <div class="location-option-type">{location.type}</div>
-              <div class="location-option-address">{location.address}<br>{location.city}, {location.state} {location.zip}</div>
-              <div class="location-option-meta">
-                {location.phone && <a href={`tel:${location.phone.replace(/\D/g, '')}`}>{location.phone}</a>}
-                <span>{location.hours}</span>
-                <a target="_blank" rel="noopener" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${location.address}, ${location.city}, ${location.state} ${location.zip}`)}`}>Get Directions</a>
-                <span class="location-option-distance" data-nav-distance-for={location.id}></span>
-              </div>
-            </div>
-            <div class="location-option-actions">
-              <button class="location-order" type="button" data-nav-order-location={location.id} disabled={!location.orderUrl}>Order Now</button>
-              <button class="location-select" type="button" data-nav-select-location={location.id}>Set as my store</button>
-            </div>
-          </article>
-        ))}
-      </div>
-      <div class="location-rewards">
-        <h3>Start Earning<br>Rewards Today!</h3>
-        <a href="locations.html">Sign Up</a>
-        <a href="locations.html">Sign In</a>
-      </div>
-    </div>
-  </div>
   <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">☰</button>
   <ul class="nav-links">
     <li><a href="#">Home</a></li>
